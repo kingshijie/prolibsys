@@ -1,0 +1,12 @@
+<?php
+	if (!defined('IN_PLIB')) {
+		exit('Access Denied');
+	}	
+	require PLIB_ROOT.'./include/function_problem.php';
+	if($op == 'show_pro'){
+		if(!empty($_GET['pid'])) {
+			$des = $db->fetch_first('SELECT `description` FROM '.tname('prolib').' WHERE `pid`='.$_GET['pid']);
+			show_problem($_GET['pid'], $des, $typeid);
+		}
+	}
+?>

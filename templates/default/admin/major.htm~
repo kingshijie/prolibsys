@@ -1,0 +1,11 @@
+<!-- <form method="post" action="admincp.php?ac=major">
+	<input type="text" name="majorname">输入科目名称khkljlkjlj
+	<input type="submit" />
+</form> -->
+{loop $major_arr $major}
+	{if $major['mid'] != 1}
+	<b>{$major['mid']}</b>&nbsp;{$major['mname']}<br />
+	{else}
+	{$major['mid']}&nbsp;<font size="14">{$major['mname']}</font><br />
+	{/if}
+{/loop}

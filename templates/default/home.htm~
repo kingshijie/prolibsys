@@ -1,0 +1,40 @@
+{subtemplate header}
+<!-- fancybox 调用jQuery -->
+<script type="text/javascript">
+$(document).ready(function() {
+
+	/* This is basic - uses default settings */
+	
+	$("a#single_image").fancybox();
+	
+	/* Using custom settings */
+	
+	$("a#inline").fancybox({
+		'hideOnContentClick': true
+	});
+
+	/* Apply fancybox to multiple items */
+	
+	$("a.group").fancybox({
+		'transitionIn'	:	'elastic',
+		'transitionOut'	:	'elastic',
+		'speedIn'		:	600, 
+		'speedOut'		:	200, 
+		'overlayShow'	:	false
+	});
+	
+	$("#various2").fancybox();
+	
+});
+</script>
+<!-- fancybox 调用jQuery end -->
+<div id="content">
+
+<a href="test.php" id="various2">This takes content using ajax</a>
+
+<a id="inline" href="#data">This shows content of element who has id="data"</a>
+
+<div style="display:none"><div id="data">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div></div>
+
+</div>
+{subtemplate footer}

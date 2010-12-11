@@ -1,0 +1,6 @@
+{subtemplate header}
+<div id="content">
+<div class="con_block">
+</div>
+</div>
+{subtemplate footer}

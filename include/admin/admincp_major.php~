@@ -1,0 +1,8 @@
+<?php
+	if (!defined('IN_PLIB')) {
+		exit('Access Denied');
+	}
+	$majorname = $_POST['majorname'];
+	echo 'INSERT INTO '.tname('major').' VALUES(NULL,'.$majorname.')';
+	//$db->query('INSERT INTO '.tname('major').' VALUES(NULL,'.$majorname.')');
+?>

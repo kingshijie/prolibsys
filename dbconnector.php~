@@ -1,0 +1,24 @@
+<?php
+	
+	define("MYSQLHOST", "localhost");
+	define("MYSQLUSER", "root");
+	define("MYSQLPASS", "1111");
+	define("MYSQLLDB", "taskdb");
+	
+	function opendatabase(){
+		$db = mysql_connect(MYSQLHOST,MYSQLUSER,MYSQLPASS);
+		try{
+			if (!$db){
+				$exceptionstring = "Error connecting to database:<br />";
+				$exceptionstring .= mysql_errno() . ":" . mysql_error();
+				throw new exception ($exceptionstring);	
+			}	else {
+				mysql_select_db (MYSQLDB.$db);	
+			}
+			return $db;
+		}	catch (exception $e) {
+			echo $e->getmessage();
+			die();	
+		}
+	}
+?>
