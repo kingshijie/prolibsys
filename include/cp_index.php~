@@ -1,8 +1,0 @@
-<?php
-	if(!defined('IN_PLIB')) {
-		exit('Access Denied');
-	}
-	$result = $db->fetch_first("SELECT * FROM `user`");
-	print_r($result);
-	include template('index');
-?>
