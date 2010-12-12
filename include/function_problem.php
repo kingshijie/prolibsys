@@ -14,6 +14,9 @@ if(!defined('IN_PLIB')) {
 6.str2pro_saq()	//字符串转为简答题
 7.pro2str_cmb($description,$pids)	//组合题转为字符串
 8.str2pro_cmb($str)	//字符串转为组合题
+9.show_problem($name)  // 打印题目
+10.show_add_pro($typeid, $mid, $is_exer=0)  //显示对题目的操作(add,edit)
+11.show_eidt_pro($pid)
 //////////////////////////////////////////////////////////*/
 /** 
 * 函数名：function pro2str_sel($description,$unique,$options) 
@@ -97,7 +100,7 @@ function show_problem($name){
 }
 
 /** 
-* 函数名：function show_problem($des, $typeid)
+* 函数名：function show_add_pro($typeid, $mid, $is_exer=0)
 * 功  能：打印题目
 * 参  数：$typeid 题型号
 			$mid 科目
@@ -157,6 +160,90 @@ function show_add_pro($typeid, $mid, $is_exer=0){
 	$show_str .= '<h2>知识点</h2>';
 	foreach($knos as $kno){
 		$show_str .= "<input type=\"checkbox\" name=\"knos[]\" value=\"$kno[kid]\">$kno[kname]";
+		if((++$i) % 8 == 0)
+			$show_str .= '<br />';
+	}
+	$show_str .= '<hr /><input type="submit" value="提交到题库" style="width:400px;">';
+	return $show_str;
+}
+
+/** 
+* 函数名：function show_edit_pro($typeid, $mid, $is_exer=0)
+* 功  能：打印题目
+* 参  数：$typeid 题型号
+			$mid 科目
+			$is_exer 默认为0
+* 返回值：$show_str 显示题目的静态代码
+*/ 
+function show_edit_pro($pid){
+	global $CACHE,$db;
+	get_cache('pro_type');
+	$proedit = $db->fetch_first('SELECT * FROM '.tname('prolib').' WHERE `pid`='.$pid);
+	$show_str = '<input type="hidden" name="typeid" value="'.$proedit['typeid'].'">
+		<input type="hidden" name="mid" value="'.$proedit['mid'].'">
+		<input type="hidden" name="is_exer" value="'.$proedit['is_exer'].'">';
+	switch($CACHE['pro_type'][$proedit['typeid']]) {
+		case '选择题':
+			$problem = str2pro_sel($proedit['description']);
+			print_r($problem);
+			$show_str .= '<hr />';
+			$show_str .= '<h2>题目描述</h2><textarea rows=4 cols=80 name=description>'.$problem[0].'</textarea><br />';
+			$show_str .= '<hr />';
+			$show_str .= '<h2>选项</h2><div id=items>';
+			$item_num = $problem[2];
+			for($i = 0;$i < $item_num;$i++){
+				$show_str .= chr(ord('A')+$i).'.<input name=item[] type=text value='.$problem[3+$i].'/><br />';	
+			}
+			$show_str .= "<input type=hidden value=$item_num name=opt_num />";
+			$show_str .= '</div><br />';
+			$show_str .= '<hr />';
+			$show_str .= '<h2>答案&nbsp;<font color="red">(多选时各项以#隔开)</font></h2><textarea rows=4 cols=80 name=ans>'.$proedit['ans'].'</textarea><br />';
+			$show_str .= '<hr />';
+			$show_str .= '<h2>是否单选</h2><input type="radio" name="unique" value="1" '.($problem[1]?'checked="checked"':'').'>单选<input type="radio" name="unique" value="0"'.($problem[1]?'':'checked="checked"').'>多选<br />';
+			break;
+		case '填空题':
+			$problem = str2pro_fil($proedit['description']);
+			$show_str .= '<h2>原题</h2><p>'.$problem.'</p>';
+			$show_str .= '<hr />';
+			$show_str .= '<h2>题目描述&nbsp;<font color="red">(空格请以#代替)</font></h2><textarea rows=4 cols=80 name=description>'.$proedit['description'].'</textarea><br />';
+			$show_str .= '<hr />';
+			$show_str .= '<h2>答案&nbsp;<font color="red">(多个空时各项以#隔开)</font></h2><textarea rows=4 cols=80 name=ans>'.$proedit['ans'].'</textarea><br />';
+			break;
+		case '简答题':
+		case '名词解释':
+			$show_str .= '<hr />';
+			$show_str .= '<h2>题目描述</h2><textarea rows=4 cols=80 name=description>'.$proedit['description'].'</textarea><br />';
+			$show_str .= '<hr />';
+			$show_str .= '<h2>答案</h2><textarea rows=4 cols=80 name=ans>'.$proedit['ans'].'</textarea><br />';
+			break;
+		case '组合题':
+			$problem = str2pro_cmb($proedit['description']);
+			$show_str .= '<hr />';
+			$show_str .= '<h2>题目描述</h2><textarea id=cmd_des rows=4 cols=80 name=description onblur="SetCookie(\'cmd_con\',this.value);">'.$problem[0].'</textarea><br />';
+			$show_str .= '<hr />';
+			$show_str .= '<a class="show_info" href="./fancybox/fancybox.php?op=show_add_cmb_pro&mid='.$mid.'&is_exer='.$is_exer.'">问题添加</a><br />';
+			$pros_str = $problem[1];	
+			$show_str .= '1)'.show_problem($problem[1]);		
+			for($i=2;$i < count($problem);$i++){
+				$pros_str .= '@#'.$problem[$i];	
+				$show_str .= $i.')'.show_problem($problem[$i]);
+			}
+			ssetcookie('parent',$pros_str,600);
+			break;
+		default:
+			return false;
+	}
+	$show_str .= '<hr />';
+	$knos = $db->fetch_all('SELECT `kid`,`kname` FROM '.tname('knowledge').' WHERE `mid`='.$proedit['mid']);
+	$query = $db->query('SELECT `kid` FROM '.tname('prolib_knowledge').' WHERE `pid`='.$pid);
+	$pro_knos = array();
+	while($info = $db->fetch_array($query)){
+		$pro_knos[] = 	$info['kid'];
+	}
+	$i = 0;
+	$show_str .= '<h2>知识点</h2>';
+	foreach($knos as $kno){
+		$show_str .= "<input type=\"checkbox\" name=\"knos[]\" value=\"$kno[kid]\"".(in_array($kno['kid'],$pro_knos)?'checked="checked"':'').">$kno[kname]";
 		if((++$i) % 8 == 0)
 			$show_str .= '<br />';
 	}

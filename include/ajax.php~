@@ -26,10 +26,10 @@
 			echo '<form action="admincp.php?ac=problem&op=show_add" method="post">
 			<input type="hidden" name="major" value="'.$_GET['mid'].'" />
 			<input type="hidden" name="parent" value="cmd" />
-			<input type="hidden" name="is_exer" value="'.$_GET['is_exer'].'" />'.$_GET['mid'].'选择题型：'.$pro_type_sel.
+			<input type="hidden" name="is_exer" value="'.$_GET['is_exer'].'" />选择题型：'.$pro_type_sel.
 			'<input type="submit" value="确定"" /></form>';
 		}elseif($type == 'chs_from_plib') {
-			
+			echo 'Sorry, unavailable this time.';
 		}
 	}
 ?>

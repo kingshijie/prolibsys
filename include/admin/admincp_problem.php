@@ -8,6 +8,7 @@
 		$sql = 'SELECT * FROM '.tname('prolib').' ORDER BY `pid` DESC {LMT)';
 		$page = isset($_GET['page']) ? max(intval($_GET['page']), 1) : 1;
 		$pro_arr = page_division($count_sql, $sql, $page, $page_arr);
+		print_r($page_arr);
 		//获得题型缓存
 		get_cache('pro_type');
 		//获得科目缓存
@@ -35,7 +36,7 @@
 	}
 	if($op == 'add_pro'){
 		$typeid = $_GET['typeid'];
-		echo 'p='.$parent = $_POST['parent'];
+		$parent = $_POST['parent'];
 		get_cache('pro_type');
 		switch($CACHE['pro_type'][$typeid]) {
 			case '选择题':
@@ -135,6 +136,7 @@
 					$des .= ('#'.$pro);
 				}
 				if($db->query('INSERT INTO '.tname('prolib')." VALUES(NULL,'$des','',$_POST[typeid],$_POST[mid],0,$_POST[is_exer])")){
+					delcookie('parent');
 					if(isset($_POST['knos'])){						
 						$pid = $db->insert_id();
 						$str = '';
@@ -149,5 +151,11 @@
 				}
 				break;
 		}	
+	}
+	if($op == 'show_edit'){
+		$pid = $_GET['pid'];
+	}
+	if($op == 'edit_pro'){
+	
 	}
 ?>

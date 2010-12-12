@@ -29,7 +29,7 @@
 			<input type="hidden" name="is_exer" value="'.$_GET['is_exer'].'" />选择题型：'.$pro_type_sel.
 			'<input type="submit" value="确定"" /></form>';
 		}elseif($type == 'chs_from_plib') {
-			
+			echo 'Sorry, unavailable now.';
 		}
 	}
 ?>

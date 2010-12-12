@@ -1,34 +1,3 @@
-<!-- fancybox 调用jQuery start -->
-<script type="text/javascript">
-$(document).ready(function() {
-
-	/* This is basic - uses default settings */
-	
-	$("a#single_image").fancybox();
-	
-	/* Using custom settings */
-	
-	$("a#inline").fancybox({
-		'hideOnContentClick': true
-	});
-
-	/* Apply fancybox to multiple items */
-	
-	$("a.group").fancybox({
-		'transitionIn'	:	'elastic',
-		'transitionOut'	:	'elastic',
-		'speedIn'		:	600, 
-		'speedOut'		:	200, 
-		'overlayShow'	:	false
-	});
-	
-	$("a.pro_des").fancybox();
-	
-	$("a.show_info").fancybox();
-	
-});
-</script>
-<!-- fancybox 调用jQuery end -->
 <div class="main_header">
 	<div id="icon-center" class="icon32"><br /></div> 
 	<h2>题库管理</h2>
@@ -40,7 +9,7 @@ $(document).ready(function() {
 		<tr><td>题目id</td><td style="width:500px;">描述</td><td>答案</td><td>类型</td><td>科目</td><td>是否客观</td><td>是否考试题</td><td colspan="2">操作</td></tr>
 	{loop $pro_arr $pro}
 		{eval $pro['description'] = substr($pro['description'],0,80)}
-		<tr><td>{$pro['pid']}</td><td><a  class="pro_des" href="./fancybox/fancybox.php?op=show_pro&pid={$pro['pid']}&typeid={$pro['typeid']}">{$pro['description']}...</a></td><td>{$pro['ans']}</td><td>{$CACHE['pro_type'][$pro['typeid']]}</td><td>{$CACHE['major'][$pro['mid']]}</td><td>{echo $pro['autocheck']?'主观':'客观'}</td><td>{echo $pro['isexer']?'练习':'考试'}</td><td><a href="admincp.php?ac=edit&pid={$pro['pid']}">编辑</a></td><td><a href="admincp.php?ac=del&pid={$pro['pid']}">删除</a></td></tr>
+		<tr><td>{$pro['pid']}</td><td><a  class="pro_des" href="./fancybox/fancybox.php?op=show_pro&pid={$pro['pid']}&typeid={$pro['typeid']}">{$pro['description']}...</a></td><td>{$pro['ans']}</td><td>{$CACHE['pro_type'][$pro['typeid']]}</td><td>{$CACHE['major'][$pro['mid']]}</td><td>{echo $pro['autocheck']?'主观':'客观'}</td><td>{echo $pro['isexer']?'练习':'考试'}</td><td><a href="admincp.php?ac=problem&op=show_edit&pid={$pro['pid']}">编辑</a></td><td><a href="admincp.php?ac=del&pid={$pro['pid']}">删除</a></td></tr>
 	{/loop}
 	</table>
 	<br />
@@ -61,6 +30,11 @@ $(document).ready(function() {
 		<input type="hidden" name="is_exer" value="{$is_exer}">
 		<input type="hidden" name="parent" value="{$parent}">		
 		{echo show_add_pro($typeid,$mid,$is_exer)}
+	</form>
+{elseif $op == 'show_edit'}
+	<form action="admincp.php?ac=problem&op=edit_pro&typeid={$proedit['typeid']}" method="post">
+		12321
+		{echo show_edit_pro($pid)}
 	</form>
 {/if}
 </div>
