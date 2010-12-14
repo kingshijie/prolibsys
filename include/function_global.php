@@ -567,10 +567,11 @@ function add_limit($sql, $start, $items_per_page){
 			$perpage
 * 返回值：
 **/
-function page_division($count_sql, $sql, $page, &$page_arr, $items_per_page=30){
+function page_division($count_sql, $sql, $page, &$page_arr, $items_per_page=20){
 	global $db;
-	$sum = $db->query($count_sql);
-	$page_sum = ceil($sum / $items_per_page);
+	$query = $db->query($count_sql);
+	$sum = $db->fetch_array($query,MYSQL_NUM);
+	$page_sum = ceil($sum[0] / $items_per_page);
 	$left = $page-5;
 	$right = $page+5;
 	if ($left <= 0)	$left = 1;

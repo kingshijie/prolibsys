@@ -9,12 +9,12 @@
 		<tr><td>题目id</td><td style="width:500px;">描述</td><td>答案</td><td>类型</td><td>科目</td><td>是否客观</td><td>是否考试题</td><td colspan="2">操作</td></tr>
 	{loop $pro_arr $pro}
 		{eval $pro['description'] = substr($pro['description'],0,80)}
-		<tr><td>{$pro['pid']}</td><td><a  class="pro_des" href="./fancybox/fancybox.php?op=show_pro&pid={$pro['pid']}&typeid={$pro['typeid']}">{$pro['description']}...</a></td><td>{$pro['ans']}</td><td>{$CACHE['pro_type'][$pro['typeid']]}</td><td>{$CACHE['major'][$pro['mid']]}</td><td>{echo $pro['autocheck']?'主观':'客观'}</td><td>{echo $pro['isexer']?'练习':'考试'}</td><td><a href="admincp.php?ac=problem&op=show_edit&pid={$pro['pid']}">编辑</a></td><td><a href="admincp.php?ac=del&pid={$pro['pid']}">删除</a></td></tr>
+		<tr><td>{$pro['pid']}</td><td><a  class="pro_des" href="./fancybox/fancybox.php?op=show_pro&pid={$pro['pid']}&typeid={$pro['typeid']}">{$pro['description']}...</a></td><td>{$pro['ans']}</td><td>{$CACHE['pro_type'][$pro['typeid']]}</td><td>{$CACHE['major'][$pro['mid']]}</td><td>{echo $pro['autocheck']?'主观':'客观'}</td><td>{echo $pro['isisexer']?'练习':'考试'}</td><td><a href="admincp.php?ac=problem&op=show_edit&pid={$pro['pid']}&typeid={$pro['typeid']}">编辑</a></td><td><a onclick="javascript:if(!confirm('确定要删除选择的信息吗？\n此操作不可以恢复！')) {return false; }"  href="admincp.php?ac=problem&op=del&pid={$pro['pid']}">删除</a></td></tr>
 	{/loop}
 	</table>
 	<br />
 	<!-- 页码显示段 -->
-	{if $page > $page_arr[0]}<a href="admincp.php?ac=problem&page={echo $page-1}">上一页</a>{/if}
+	{if $page > $page_arr[0]}<a href="admincp.php?ac=problem&page={echo $page-1}">上一页</a>&nbsp;{/if}
 	{loop $page_arr $no}
 		{if $no != $page}
 			<a href="admincp.php?ac=problem&page={$no}">{$no}</a>
@@ -22,18 +22,19 @@
 			{$no}
 		{/if}
 	{/loop}
-	{if $page < $no}<a href="admincp.php?ac=problem&page={$page+1}">下一页</a>{/if}
+	{if $page < $no}&nbsp;<a href="admincp.php?ac=problem&page={$page+1}">下一页</a>{/if}
 {elseif $op == 'show_add'}
 	<form action="admincp.php?ac=problem&op=add_pro&typeid={$typeid}" method="post">
 		<input type="hidden" name="typeid" value="{$typeid}">
 		<input type="hidden" name="mid" value="{$mid}">
-		<input type="hidden" name="is_exer" value="{$is_exer}">
-		<input type="hidden" name="parent" value="{$parent}">		
-		{echo show_add_pro($typeid,$mid,$is_exer)}
+		<input type="hidden" name="isexer" value="{$isexer}">
+		<input type="hidden" name="parent" value="{$parent}">	
+		{echo show_add_pro($typeid,$mid,$isexer)}
 	</form>
 {elseif $op == 'show_edit'}
-	<form action="admincp.php?ac=problem&op=edit_pro&typeid={$proedit['typeid']}" method="post">
+	<form action="admincp.php?ac=problem&op=edit_pro&pid={$pid}&typeid={$typeid}" method="post">
 		{echo show_edit_pro($pid)}
+		{eval print_r(getcookie('parent'))}
 	</form>
 {/if}
 </div>

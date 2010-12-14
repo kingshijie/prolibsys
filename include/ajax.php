@@ -13,7 +13,7 @@
 		for($i = 0;$i < $item_num;$i++){
 			$str .= chr(ord('A')+$i).'.<input name=item[] type=text /><a href="javascript://" onclick="makerequest(\'./include/ajax.php?op=edit_sel_item&do=del\',\'items\')">x</a><br />';	
 		}
-		ssetcookie('item_num',$item_num);
+		ssetcookie('item_num',$item_num,600);
 		$str .= "<input type=hidden value=$item_num name=opt_num />";
 		echo $str;
 	}
@@ -26,7 +26,7 @@
 			echo '<form action="admincp.php?ac=problem&op=show_add" method="post">
 			<input type="hidden" name="major" value="'.$_GET['mid'].'" />
 			<input type="hidden" name="parent" value="cmd" />
-			<input type="hidden" name="is_exer" value="'.$_GET['is_exer'].'" />选择题型：'.$pro_type_sel.
+			<input type="hidden" name="isexer" value="'.$_GET['isexer'].'" />选择题型：'.$pro_type_sel.
 			'<input type="submit" value="确定"" /></form>';
 		}elseif($type == 'chs_from_plib') {
 			echo 'Sorry, unavailable now.';
