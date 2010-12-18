@@ -1,0 +1,7 @@
+.paper_block{
+	width:650px;
+	border:1px solid #ff0000;	
+	padding:5px;
+	margin:10px;
+	display: block;
+}

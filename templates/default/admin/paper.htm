@@ -1,0 +1,57 @@
+<div class="main_header">
+	<div id="icon-center" class="icon32"><br /></div> 
+	<h2>试卷管理</h2>
+</div>
+<div class="content">
+{if $op == 'default' || $op == 'display'}
+	<div >
+		<a class="inline" href="#show_paper_block_num">添加试卷</a>
+		<div style="display: none;">
+			<div id="show_paper_block_num" style="width:400px;height:100px;overflow:auto;text-align:center;">
+				<form action="admincp.php?ac=paper&op=show_add" method="post">
+					选择考试科目：{echo build_selection($CACHE['major'],'major')}<br />
+					输入试卷共有几个模块：<input type="text" name="block_num" style="width:40px;" /><br />
+					<font color="#ff0000">即试卷总共有几个题目类型，如：填空题、选择题……</font><br />
+					<input type="submit" value="确定" />
+				</form>
+			</div>
+		</div>
+	</div>
+	<table border="1">
+		<tr><td>试卷id</td><td style="width:500px;">试卷标题</td><td>考试需时(m)</td><td>科目</td><td colspan="2">操作</td></tr>
+	{loop $paper_arr $paper}
+		{eval $paper['title'] = substr($paper['title'],0,80)}
+		<tr><td>{$paper['paid']}</td><td><a  class="pro_des" href="./fancybox/fancybox.php?op=show_paper&paid={$paper['paid']}">{$paper['title']}...</a></td><td>{$paper['timeNeed']}</td><td>{$CACHE['major'][$paper['mid']]}</td><td><a href="admincp.php?ac=paper&op=show_edit&paid={$paper['paid']}">编辑</a></td><td><a onclick="javascript:if(!confirm('确定要删除选择的信息吗？\n此操作不可以恢复！')) {return false; }"  href="admincp.php?ac=paper&op=del&paid={$paper['paid']}">删除</a></td></tr>
+	{/loop}
+	</table>
+	<br />
+	<!-- 页码显示段 -->
+	{if $page > $paper_arr[0]}<a href="admincp.php?ac=paper&page={echo $page-1}">上一页</a>&nbsp;{/if}
+	{loop $paper_arr $no}
+		{if $no != $page}
+			&nbsp;<a href="admincp.php?ac=paper&page={$no}">{$no}</a>
+		{else}
+			&nbsp;{$no}
+		{/if}
+	{/loop}
+	{if $page < $no}&nbsp;<a href="admincp.php?ac=paper&page={$page+1}">下一页</a>{/if}
+{elseif $op == 'show_add'}
+	<form action="admincp.php?ac=paper&op=add_paper" method="post">
+		标题：<input type="text" name="title" style="width:600px;"/><font color="#ff0000">(标题不能为空)</font><hr />
+		<h2>试卷模块</h2>
+		{loop $block_arr $i}
+			{$i}.模块标题：<input type="text" name="block_type{$i}" style="width:400px;"/>
+			<div id="show_pro{$i}"></div>
+			<div class="paper_block">
+				<a href="javascript://" onclick="show_hidden('show_action{$i}')">添加题目</a>&nbsp;&nbsp;
+				<div  id="show_action{$i}" style="visibility:hidden;">
+					<a href="#">从题库中取</a>|<a href="#">新建题目</a>
+					<div id="show_op{$i}"></div>
+				</div>
+			</div>
+		{/loop}
+		<hr />
+		<input type="submit" value="确认提交" style="width:400px;" />
+	</form>
+{/if}
+</div>
