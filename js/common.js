@@ -18,3 +18,11 @@ function delCookie(name)//删除cookie
     var cval=getCookie(name);
     if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
 }
+function show_hidden(objID)
+{
+	var obj = document.getElementById(objID);
+	if(obj.style.visibility == "hidden")
+		obj.style.visibility = "visible";	
+	else
+		obj.style.visibility = "hidden";
+}

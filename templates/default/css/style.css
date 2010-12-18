@@ -19,7 +19,7 @@ a img {border:none;}
   
 /***********************************************MENU   **/
 .admin_menu{float:left;margin:20px;color:#21507c;}
-.admin_menu .menu{padding:5px;line-height:25px;background:#eaf3fa;border:1px #e3e3e3 solid;cursor:pointer;width:145px;}
+.admin_menu .menu{padding:5px;text-align:center;line-height:25px;background:#eaf3fa;border:1px #e3e3e3 solid;cursor:pointer;width:145px;}
 .admin_menu .menu-separator{background:none;}
 .admin_menu .active a{color:#F00;}
 

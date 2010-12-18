@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="templates/default/css/style.css" type="text/css" />
+<link rel="stylesheet" href="templates/default/css/backyard.css" type="text/css" />
 <script type="text/javascript" src="./fckeditor/fckeditor.js"></script>
 <!-- fancybox required file start-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
@@ -43,6 +44,8 @@ $(document).ready(function() {
 	
 	$("a.show_info").fancybox();
 	
+	$("a.inline").fancybox();
+	
 });
 </script>
 <!-- fancybox 调用jQuery end -->
@@ -55,9 +58,10 @@ $(document).ready(function() {
 </div>
 </div>
 <ul class="admin_menu">
-	<li id="center" class="menu"><div class="menu_image"><a href="admincp.php"></a></div><a href="admincp.php">控制中心</a></li>
+	<li id="center" class="menu"><a href="admincp.php">控制中心</a></li>
 	<li class="menu-separator"><a class="separator" href="?unfoldmenu=1"><br /></a></li> 
-	<li id="urecommend" class="menu"><div class="menu_image"><a href="admincp.php?ac=problem"></a></div><a href="admincp.php?ac=problem">题库管理</a></li>
+	<li id="urecommend" class="menu"><a href="admincp.php?ac=problem">题库管理</a></li>
+	<li id="urecommend" class="menu"><a href="admincp.php?ac=paper">试卷管理</a></li>
 	<div class="footer">Copyright &copy; 2010<br />All Rights Reserved</div>
 </ul>
 

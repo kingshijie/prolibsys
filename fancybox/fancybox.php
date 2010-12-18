@@ -28,4 +28,13 @@
 			<div id="hw"></div>
 		</div>';	
 	}
+	//显示试卷添加题目
+	if($op == 'show_paper_add_pro'){
+		echo '<div>
+			<h1>选择添加方式</h1>
+			<a href="javascript://" onclick="makerequest(\'./include/ajax.php?op=chs_cmd_pro&type=new&mid='.$_GET['mid'].'&isexer='.$_GET['isexer'].'\',\'hw\');return false;">新建题目</a>|
+			<a href="javascript://" onclick="makerequest(\'./include/ajax.php?op=chs_cmd_pro&type=chs_from_plib\',\'hw\');return false;">从题库中选择</a>
+			<div id="hw"></div>
+		</div>';	
+	}
 ?>

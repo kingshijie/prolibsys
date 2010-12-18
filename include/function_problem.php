@@ -251,4 +251,5 @@ function show_edit_pro($pid){
 	$show_str .= '<hr /><input type="submit" value="提交到题库" style="width:400px;">';
 	return $show_str;
 }
+
 ?>

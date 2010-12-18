@@ -2,7 +2,7 @@
 if(!defined('IN_PLIB')) {
 	exit('Access Denied');
 }
-/////////////////////////////////////////////////////////////
+/*////////////////////////////////////////////////////////////
 //文件名：global.fun.php
 //注  释：
 //函数列表：
@@ -30,11 +30,18 @@ if(!defined('IN_PLIB')) {
 //22.getIP()							获取客户端IP
 //23.NoRand($begin,$end,$limit=9)		产生不重复的数字
 //------------------------------------------------------------------------------------------------------
-//24.write_notice($uid,$type,$text)		写新提醒
-//25.getusername($uid)					获取指定用户的用户名
-//26.isadmin($uid=$cookieuid)			判断一个用户是否为管理员
-//27.createEditor()						生成编辑器
-/////////////////////////////////////////////////////////////
+//24.isCensor($string)
+//25.unescape 
+26.createEditor 			生成编辑器
+27.fetch_with_limit ($condition,$begin=0,$num=1)
+28.createdir ($dir)
+29.pro_transform ($str)
+30.pro_untransform ($str)
+31.page_division_sql ($fields, $table_name, $start, $where='', $items_per_page=30, $order='')
+32.add_limit ($sql, $start, $items_per_page)
+33.page_division ($count_sql, $sql, $page, &$page_arr, $items_per_page=20)
+34.build_selection($arr,$name)
+////////////////////////////////////////////////////////////*/
 
 /** 
 * 函数名：function saddslashes($string) 
