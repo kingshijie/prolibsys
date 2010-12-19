@@ -34,7 +34,7 @@
 			&nbsp;{$no}
 		{/if}
 	{/loop}
-	{if $page < $no}&nbsp;<a href="admincp.php?ac=paper&page={$page+1}">下一页</a>{/if}
+	{if $page < $no}&nbsp;<a href="admincp.php?ac=paper&page={echo $page+1}">下一页</a>{/if}
 {elseif $op == 'show_add'}
 	<form action="admincp.php?ac=paper&op=add_paper" method="post">
 		标题：<input type="text" name="title" style="width:600px;"/><font color="#ff0000">(标题不能为空)</font><hr />
