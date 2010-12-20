@@ -34,18 +34,18 @@
 			&nbsp;{$no}
 		{/if}
 	{/loop}
-	{if $page < $no}&nbsp;<a href="admincp.php?ac=paper&page={$page+1}">下一页</a>{/if}
+	{if $page < $no}&nbsp;<a href="admincp.php?ac=paper&page={echo $page+1}">下一页</a>{/if}
 {elseif $op == 'show_add'}
 	<form action="admincp.php?ac=paper&op=add_paper" method="post">
 		标题：<input type="text" name="title" style="width:600px;"/><font color="#ff0000">(标题不能为空)</font><hr />
 		<h2>试卷模块</h2>
 		{loop $block_arr $i}
 			{$i}.模块标题：<input type="text" name="block_type{$i}" style="width:400px;"/>
-			<div id="show_pro{$i}"></div>
 			<div class="paper_block">
+				<div id="show_pro{$i}"></div>
 				<a href="javascript://" onclick="show_hidden('show_action{$i}')">添加题目</a>&nbsp;&nbsp;
 				<div  id="show_action{$i}" style="visibility:hidden;">
-					<a href="#">从题库中取</a>|<a href="#">新建题目</a>
+					<a href="javascript://" onclick="makerequest('./include/ajax.php?op=fetch_pro&mid={$mid}&i={$i}','show_op{$i}');return false;">从题库中取</a>|<a href="#">新建题目</a>
 					<div id="show_op{$i}"></div>
 				</div>
 			</div>

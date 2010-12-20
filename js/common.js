@@ -26,3 +26,8 @@ function show_hidden(objID)
 	else
 		obj.style.visibility = "hidden";
 }
+function set_empty(objID)
+{
+		var obj = document.getElementById(objID);
+		obj.innerHTML = "";
+}

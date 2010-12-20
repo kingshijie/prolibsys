@@ -22,7 +22,7 @@
 			&nbsp;{$no}
 		{/if}
 	{/loop}
-	{if $page < $no}&nbsp;<a href="admincp.php?ac=problem&page={$page+1}">下一页</a>{/if}
+	{if $page < $no}&nbsp;<a href="admincp.php?ac=problem&page={echo $page+1}">下一页</a>{/if}
 {elseif $op == 'show_add'}
 	<form action="admincp.php?ac=problem&op=add_pro&typeid={$typeid}" method="post">
 		<input type="hidden" name="typeid" value="{$typeid}">
