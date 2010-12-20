@@ -1,0 +1,34 @@
+<div class="main_header">
+	<div id="icon-center" class="icon32"><br /></div> 
+	<h2>考试管理</h2>
+</div>
+<div class="content">
+<div ><a href="admincp.php?ac=test&op=show_add">添加考试</a></div>
+{if $op == 'default' || $op == 'display'}
+	<table border="1">
+		<tr><td>考试id</td><td>试卷id</td><td>开始时间</td><td>结束时间</td><td>考试组</td><td colspan="2">操作</td></tr>
+	{loop $test_arr $test}
+		<tr><td>{$test['tid']}</td><td>{$test['paid']}</td><td>{$test['stime']}</td><td>{$test['etime']}</td><td>{$test['groupids']}</td><td><a href="admincp.php?ac=test&op=show_edit&tid={$test['tid']}">编辑</a></td><td><a onclick="javascript:if(!confirm('确定要删除选择的信息吗？\n此操作不可以恢复！')) {return false; }"  href="admincp.php?ac=test&op=del&tid={$test['tid']}">删除</a></td></tr>
+	{/loop}
+	</table>
+	<br />
+	<!-- 页码显示段 -->
+	{if $page > $page_arr[0]}<a href="admincp.php?ac=test&page={echo $page-1}">上一页</a>&nbsp;{/if}
+	{loop $page_arr $no}
+		{if $no != $page}
+			&nbsp;<a href="admincp.php?ac=test&page={$no}">{$no}</a>
+		{else}
+			&nbsp;{$no}
+		{/if}
+	{/loop}
+	{if $page < $no}&nbsp;<a href="admincp.php?ac=test&page={$page+1}">下一页</a>{/if}
+{elseif $op == 'show_add'}
+	<form action="admincp.php?ac=test&op=add_test" method="post">		
+		
+	</form>
+{elseif $op == 'show_edit'}
+	<form action="admincp.php?ac=test&op=edit_test&tid={$tid}" method="post">
+		22222222
+	</form>
+{/if}
+</div>
