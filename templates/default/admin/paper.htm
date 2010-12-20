@@ -41,11 +41,11 @@
 		<h2>试卷模块</h2>
 		{loop $block_arr $i}
 			{$i}.模块标题：<input type="text" name="block_type{$i}" style="width:400px;"/>
-			<div id="show_pro{$i}"></div>
 			<div class="paper_block">
+				<div id="show_pro{$i}"></div>
 				<a href="javascript://" onclick="show_hidden('show_action{$i}')">添加题目</a>&nbsp;&nbsp;
 				<div  id="show_action{$i}" style="visibility:hidden;">
-					<a href="#">从题库中取</a>|<a href="#">新建题目</a>
+					<a href="javascript://" onclick="makerequest('./include/ajax.php?op=fetch_pro&mid={$mid}&i={$i}','show_op{$i}');return false;">从题库中取</a>|<a href="#">新建题目</a>
 					<div id="show_op{$i}"></div>
 				</div>
 			</div>

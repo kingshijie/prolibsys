@@ -32,4 +32,66 @@
 			echo 'Sorry, unavailable now.';
 		}
 	}
+	//搜索题目
+	if($op == 'search_pro'){
+		$i = $_POST['i'];
+		$typeid = $_POST['pro_type'];
+		$kno = $_POST['kno'];
+		$search_des = $_POST['search_des'];
+		$search_des = str_replace(" ","",$search_des);
+		$search_des = str_replace("\t","",$search_des);
+		$mid = $_POST['mid'];
+		$need_kno = empty($kno);
+		$tprolib = tname('prolib');
+		$tp_k = tname('prolib_knowledge');
+		$sql = 'SELECT '.$tprolib.'.`pid`,`description` FROM '.$tprolib.($need_kno?'':','.$tp_k).' WHERE `typeid`='.$typeid.($need_kno?'':' AND '.$tp_k.'.`kid`='.$kno).(empty($search_des)?'':' AND `description` LIKE \'%'.$search_des.'%\'').($need_kno?'':' AND '.$tp_k.'.`pid`='.$tprolib.'.`pid`');
+		$result = $db->fetch_all($sql);
+		echo '<h2>搜索结果：</h2>';
+		foreach($result as $pro){
+			$pro['description'] = substr($pro['description'],0,50);
+			echo "&nbsp;&nbsp;<input type=checkbox name=pid[] value=$pro[pid] /><a  class=\"pro_des\" href=\"./fancybox/fancybox.php?op=show_pro&pid=$pro[pid]\">$pro[description]...</a><br />";	
+		}
+		echo '<input type="hidden" name="i" value='.$i.' />';
+		echo '<input type="button" value="确定添加" onclick="submitform(document.getElementById(\'result'.$i.'\'),\'./include/ajax.php?op=add_pro2block\',\'show_pro'.$i.'\');set_empty(\'show_op'.$i.'\');return false;">';
+	}
+	//取题目
+	if($op == 'fetch_pro'){
+		$i = $_GET['i'];
+		get_cache('pro_type');
+		$pro_type_sel = build_selection($CACHE['pro_type'],'pro_type');
+		$kno_arr = array(0 => '不指定');
+		$result = $db->query('SELECT `kid`,`kname` FROM '.tname('knowledge').' WHERE `mid`='.$_GET['mid']);
+		while($info = $db->fetch_array($result)){
+			$kno_arr[$info['kid']] = $info['kname'];
+		}
+		$kno_sel = build_selection($kno_arr,'kno');
+		$show_str = '<form action="" method="post" id=""><div class="blank"></div></form>';//Firefox第一个form无效，bug?
+		$show_str .= '<form action="./include/ajax.php?op=search_pro" method="post" id="search_form'.$i.'">';
+		$show_str .= "题型：$pro_type_sel &nbsp;&nbsp; 知识点：$kno_sel &nbsp;&nbsp; ";
+		$show_str .= '&nbsp;&nbsp;题目描述关键字：<input type="text" name="search_des" /><input type="hidden" name="mid" value="'.$_GET['mid'].'" /><input type="hidden" name="i" value="'.$i.'" />';
+		$show_str .= '&nbsp;&nbsp;<input value="搜索" type="button" onclick="submitform(document.getElementById(\'search_form'.$i.'\'),\'./include/ajax.php?op=search_pro\',\'search_result'.$i.'\');return false;">';
+		$show_str .= '</form>';
+		$show_str .= '<form action="./include/ajax.php?op=add_pro2block" method="post" id="result'.$i.'">';
+		$show_str .= '<div id="search_result'.$i.'"></div>';
+		$show_str .= '</form>';
+		echo $show_str;
+	}
+	//将题目加入试卷模块
+	if($op == 'add_pro2block'){
+		$pros = $_POST['pid'];
+		$i = $_POST['i'];
+		/*$cookie_pro = 'block'.$i;
+		$cpros = array();
+		if(isset($_COOKIE[$cookie_pro])){
+			$cpros = explode('@#',$_COOKIE[$cookie_pro]);
+		}
+		foreach($pros as $pid){
+			if(!in_array($pid,$cpros))
+				$cpros[] = $pid;
+			echo show_problem($pid).'<br />';	
+		}
+		$cstr = implode('@#',$cpros);
+		setcookie($cookie_pro,$cstr,1800);
+		print_r($GLOBALS['GLOBALS']);*/
+	}
 ?>
