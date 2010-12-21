@@ -3,7 +3,6 @@
 	if (!defined('IN_PLIB')) {
 		exit('Access Denied');
 	}
-	require PLIB_ROOT.'./include/function_problem.php';
 	$op = $_GET['op'];
 	//显示单个题目
 	if($op == 'show_pro'){
@@ -36,5 +35,11 @@
 			<a href="javascript://" onclick="makerequest(\'./include/ajax.php?op=chs_cmd_pro&type=chs_from_plib\',\'hw\');return false;">从题库中选择</a>
 			<div id="hw"></div>
 		</div>';	
+	}
+	//打印试卷
+	if($op == 'show_paper'){
+		$paid = $_GET['paid'];
+		header('HTTP/1.1 301 Moved Permanently');
+		header('Location: ../cp.php?ac=home&paid='.$paid);
 	}
 ?>

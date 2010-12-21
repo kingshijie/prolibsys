@@ -21,13 +21,13 @@
 		<tr><td>试卷id</td><td style="width:500px;">试卷标题</td><td>考试需时(m)</td><td>科目</td><td colspan="2">操作</td></tr>
 	{loop $paper_arr $paper}
 		{eval $paper['title'] = substr($paper['title'],0,80)}
-		<tr><td>{$paper['paid']}</td><td><a  class="pro_des" href="./fancybox/fancybox.php?op=show_paper&paid={$paper['paid']}">{$paper['title']}...</a></td><td>{$paper['timeNeed']}</td><td>{$CACHE['major'][$paper['mid']]}</td><td><a href="admincp.php?ac=paper&op=show_edit&paid={$paper['paid']}">编辑</a></td><td><a onclick="javascript:if(!confirm('确定要删除选择的信息吗？\n此操作不可以恢复！')) {return false; }"  href="admincp.php?ac=paper&op=del&paid={$paper['paid']}">删除</a></td></tr>
+		<tr><td>{$paper['paid']}</td><td><a target="blank" href="./fancybox/fancybox.php?op=show_paper&paid={$paper['paid']}">{$paper['title']}...</a></td><td>{$paper['timeNeed']}</td><td>{$CACHE['major'][$paper['mid']]}</td><td><a href="admincp.php?ac=paper&op=show_edit&paid={$paper['paid']}">编辑</a></td><td><a onclick="javascript:if(!confirm('确定要删除选择的信息吗？\n此操作不可以恢复！')) {return false; }"  href="admincp.php?ac=paper&op=del&paid={$paper['paid']}">删除</a></td></tr>
 	{/loop}
 	</table>
 	<br />
 	<!-- 页码显示段 -->
-	{if $page > $paper_arr[0]}<a href="admincp.php?ac=paper&page={echo $page-1}">上一页</a>&nbsp;{/if}
-	{loop $paper_arr $no}
+	{if $page > $page_arr[0]}<a href="admincp.php?ac=paper&page={echo $page-1}">上一页</a>&nbsp;{/if}
+	{loop $page_arr $no}
 		{if $no != $page}
 			&nbsp;<a href="admincp.php?ac=paper&page={$no}">{$no}</a>
 		{else}
@@ -37,10 +37,14 @@
 	{if $page < $no}&nbsp;<a href="admincp.php?ac=paper&page={echo $page+1}">下一页</a>{/if}
 {elseif $op == 'show_add'}
 	<form action="admincp.php?ac=paper&op=add_paper" method="post">
+		<input type="hidden" name="block_num" value="{$block_num}" />
+		<input type="hidden" name="mid" value="{$mid}" />
+		考试时间：<input type="text" name="timeNeed" value="120" style="width:30px" />分钟<br />
 		标题：<input type="text" name="title" style="width:600px;"/><font color="#ff0000">(标题不能为空)</font><hr />
 		<h2>试卷模块</h2>
 		{loop $block_arr $i}
-			{$i}.模块标题：<input type="text" name="block_type{$i}" style="width:400px;"/>
+			{$i}.模块标题：<input type="text" name="block_title{$i}" style="width:400px;"/><br />
+			&nbsp;&nbsp;模块描述：<textarea rows="3" cols="60" name="block_des{$i}"></textarea>
 			<div class="paper_block">
 				<div id="show_pro{$i}"></div>
 				<a href="javascript://" onclick="show_hidden('show_action{$i}')">添加题目</a>&nbsp;&nbsp;

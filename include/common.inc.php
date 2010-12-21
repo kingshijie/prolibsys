@@ -26,6 +26,7 @@ if(!@include_once(PLIB_ROOT.'./config.inc.php')){
 require_once PLIB_ROOT.'./include/function_global.php';
 require_once PLIB_ROOT.'./include/function_cache.php';
 require_once PLIB_ROOT.'./include/function_template.php';
+require_once PLIB_ROOT.'./include/function_problem.php';
 require_once PLIB_ROOT.'./include/class_mysql.php';
 
 
@@ -52,6 +53,7 @@ dbconnect();
 //$editor = '';//编辑器初始化 
 
 $tpldir = './templates/default'; //模板文件目录
+$paperdir = PLIB_ROOT.'./cache/papers/';	//试卷静态页面存放目录
 $styleid = 1; //模板id号
 $timeout = 60; //模板缓存文件过期时间
 $language = include PLIB_ROOT.$tpldir.'/language.php'; //language.php的编码需要和博客系统的编码一致

@@ -34,7 +34,6 @@
 {elseif $op == 'show_edit'}
 	<form action="admincp.php?ac=problem&op=edit_pro&pid={$pid}&typeid={$typeid}" method="post">
 		{echo show_edit_pro($pid)}
-		{eval print_r(getcookie('parent'))}
 	</form>
 {/if}
 </div>

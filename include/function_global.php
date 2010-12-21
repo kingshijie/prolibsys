@@ -603,5 +603,18 @@ function build_selection($arr,$name){
 	$sel .= '</select>';
 	return $sel;
 }
+/** 
+* 函数名：
+* 功  能：生成静态网页
+* 参  数：$out_str	输出内容
+			$file_name 静态页名
+* 返回值：$str
+**/
+function create_html($out_str,$file_name){
+	global $paperdir;
+	$fp = fopen($paperdir.$file_name.'.html', "w");
+	fwrite($fp, $out_str);
+	fclose($fp);
+}
 //---------------------------------以上是PLIB专属用函数------------------------------
 ?>

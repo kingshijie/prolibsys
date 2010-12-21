@@ -31,3 +31,18 @@ function set_empty(objID)
 		var obj = document.getElementById(objID);
 		obj.innerHTML = "";
 }
+function expendByName(name)
+{
+	document.getElementById(name).style.display=(document.getElementById(name).style.display =='none')?'':'none'
+}
+function chooseAnwser(id)
+{
+	document.getElementById(id)
+}
+function getFocus(id)
+{
+	//document.getElementById(id).style.color='orange';
+	document.getElementById(id).style.background='#99CC99';
+	//document.getElementById(id).style.
+	//this.style.font-size='16px';
+}

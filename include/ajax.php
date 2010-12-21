@@ -3,7 +3,6 @@
 	if (!defined('IN_PLIB')) {
 		exit('Access Denied');
 	}
-	require PLIB_ROOT.'./include/function_problem.php';
 	$op = $_GET['op'];
 	//选择题增加选项
 	if($op == 'edit_sel_item'){
@@ -78,20 +77,40 @@
 	}
 	//将题目加入试卷模块
 	if($op == 'add_pro2block'){
+		session_start(); 
 		$pros = $_POST['pid'];
 		$i = $_POST['i'];
-		/*$cookie_pro = 'block'.$i;
-		$cpros = array();
-		if(isset($_COOKIE[$cookie_pro])){
-			$cpros = explode('@#',$_COOKIE[$cookie_pro]);
+		$session_pro = 'block'.$i;
+		if(!isset($_SESSION[$session_pro]))
+			$_SESSION[$session_pro] = array();
+		$pros = array_merge($_SESSION[$session_pro],$pros);
+		$_SESSION[$session_pro] = array_unique($pros);
+		foreach($_SESSION[$session_pro] as $key => $pid){
+			echo '&nbsp;<a title="删除该题" href="javascript://" onclick="makerequest(\'./include/ajax.php?op=del_fetch_pro&pid='.$pid.'&i='.$i.'\',\'show_pro'.$i.'\');return false;">x</a>&nbsp;&nbsp;';
+			echo '<input title="输入分值" type="text" name="score[]" style="width:15px"/>';			
+			echo ($key+1).')'.show_problem($pid);	
 		}
-		foreach($pros as $pid){
-			if(!in_array($pid,$cpros))
-				$cpros[] = $pid;
-			echo show_problem($pid).'<br />';	
+	}
+	if($op == 'del_fetch_pro'){
+		session_start();
+		$pid = $_GET['pid'];
+		$i = $_GET['i'];
+		$session_pro = 'block'.$i;
+		foreach($_SESSION[$session_pro] as $key => $value){
+			if($value == $pid){
+				unset($_SESSION[$session_pro][$key]);
+				break;	
+			}	
 		}
-		$cstr = implode('@#',$cpros);
-		setcookie($cookie_pro,$cstr,1800);
-		print_r($GLOBALS['GLOBALS']);*/
+		if(!empty($_SESSION[$session_pro])){
+			$_SESSION[$session_pro] = array_merge($_SESSION[$session_pro],array());
+			foreach($_SESSION[$session_pro] as $key => $pid){
+				echo '&nbsp;<a title="删除该题" href="javascript://" onclick="makerequest(\'./include/ajax.php?op=del_fetch_pro&pid='.$pid.'&i='.$i.'\',\'show_pro'.$i.'\');return false;">x</a>&nbsp;&nbsp;';
+				echo '<input title="输入分值" type="text" name="score[]" style="width:15px"/>';			
+				echo ($key+1).')'.show_problem($pid);	
+			}
+		}else{
+			echo '';	
+		}
 	}
 ?>

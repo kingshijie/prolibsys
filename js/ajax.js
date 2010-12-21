@@ -20,11 +20,12 @@ function getxmlhttp(){
 
 function makerequest(serverPage, objID){
 	var xmlhttp = getxmlhttp();
-	var obj = document.getElementById(objID);
+	var obj;
+	if(objID)	obj = document.getElementById(objID);
 	xmlhttp.open("GET",serverPage);
 	xmlhttp.onreadystatechange = function(){
 		if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
-			obj.innerHTML = xmlhttp.responseText;
+			if(obj)	obj.innerHTML = xmlhttp.responseText;
 		}
 	}
 	xmlhttp.send(null);

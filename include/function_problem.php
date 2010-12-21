@@ -91,7 +91,7 @@ function show_problem($name){
 			$problem = str2pro_cmb($des);
 			$show_str = "$problem[0]<br />";
 			for($i = 1;$i < count($problem);$i++){
-				$show_str .= $i.')'.show_problem($problem[$i]);
+				$show_str .= '&nbsp;&nbsp;('.$i.')'.show_problem($problem[$i]);
 			}
 			return $show_str;
 		default:
@@ -251,5 +251,4 @@ function show_edit_pro($pid){
 	$show_str .= '<hr /><input type="submit" value="提交到题库" style="width:400px;">';
 	return $show_str;
 }
-
 ?>

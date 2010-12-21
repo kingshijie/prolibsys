@@ -1,40 +1,71 @@
 {subtemplate header}
-<!-- fancybox 调用jQuery start -->
-<script type="text/javascript">
-$(document).ready(function() {
-
-	/* This is basic - uses default settings */
-	
-	$("a#single_image").fancybox();
-	
-	/* Using custom settings */
-	
-	$("a#inline").fancybox({
-		'hideOnContentClick': true
-	});
-
-	/* Apply fancybox to multiple items */
-	
-	$("a.group").fancybox({
-		'transitionIn'	:	'elastic',
-		'transitionOut'	:	'elastic',
-		'speedIn'		:	600, 
-		'speedOut'		:	200, 
-		'overlayShow'	:	false
-	});
-	
-	$("#various2").fancybox();
-	
-});
-</script>
-<!-- fancybox 调用jQuery end -->
-<div id="content">
-
-<a href="test.php" id="various2">This takes content using ajax</a>
-
-<a id="inline" href="#data">This shows content of element who has id="data"</a>
-
-<div style="display:none"><div id="data">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div></div>
-
-</div>
+			<div id="con">
+				<div id="left">
+					<!--I am left!		-->
+					{eval $i = 0}
+					{eval $j = 0}
+					{loop $blocks $block}
+					{eval $i++}
+					<div class="left_menu" onClick="expendByName('child{$i}')" >{$block[0]}</div>
+						<div id="child{$i}" class="child" style="display:none">
+							<ul>
+								{loop $block[2] $pid}
+								{eval $j++}
+								<li><a href="#pro{$j}">第{$j}题</a></li>
+								{/loop}
+				     		</ul>
+			     		</div>
+			     	{/loop}
+				</div>
+				<div id="middle">		
+					<div	id="paper">
+						<div id="paper-header">
+							<div id="paper-header-pin"></div>
+							<div id="paper-header-up"></div>
+							<div id="paper-header-down"></div>
+						</div>
+						<div id="paper-middler">
+							<div id="paper-body">
+								<form action="#" method="post"> 
+								<div id="paper_title">{$title}</div>
+								{eval $i = 0}
+								{eval $j = 0}
+								{loop $blocks $block}
+								{eval $i++}
+								<div class="section">
+									<h5>{$i}.{$block[0]}</h5>
+									<p>{$block[1]}</p>
+									{loop $block[2] $pid}
+									{eval $j++}
+									<div  id="pro{$j}" class="pro_style" onmouseover="this.style.background='#ede65e'" onmouseout="this.style.background='white'">
+										{echo "<span>$j</span>.".show_problem($pid)}
+									</div>
+									{/loop}
+								</div>
+								{/loop}
+							</div>
+						</div>
+						<div id="paper-footer">
+							<div id="paper-footer-left">
+							</div>
+							<div id="paper-footer-right">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="right">
+					<div id="right-up" class="right">
+						<h5 align="center">Timer</h5>
+						剩余时间：90:30
+					</div>
+					<div id="right-middle" class="right">
+						<!--in right middle	-->			
+					</div>
+					<div id="right-down" class="right">
+							<h5 >请在确认后交卷</h5>
+							<input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="交卷" title="Ready to summit?" tabindex="100" />			
+						</form>
+					</div>
+				</div>
+			</div>
 {subtemplate footer}

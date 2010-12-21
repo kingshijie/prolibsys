@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2010 年 12 月 18 日 21:36
+-- 生成日期: 2010 年 12 月 21 日 16:05
 -- 服务器版本: 5.1.49
 -- PHP 版本: 5.3.3-1ubuntu9.1
 
@@ -110,12 +110,14 @@ CREATE TABLE IF NOT EXISTS `plib_paper` (
   `timeNeed` tinyint(3) unsigned NOT NULL,
   `mid` smallint(6) unsigned NOT NULL,
   PRIMARY KEY (`paid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='试卷' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='试卷' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `plib_paper`
 --
 
+INSERT INTO `plib_paper` (`paid`, `title`, `construction`, `timeNeed`, `mid`) VALUES
+(1, '第一次测试测试哈', '3##选择#28#35##填空#21#28##判断#25#30#27##10#10#10#10#10#10#10', 120, 1);
 
 -- --------------------------------------------------------
 
@@ -163,7 +165,7 @@ INSERT INTO `plib_prolib` (`pid`, `description`, `ans`, `typeid`, `mid`, `autoch
 (5, 'Today is sunday.Let''s see what will happen!这是组合题的例子，看看能不能用吧#1#2#3#4', 'A#asdfsgs#sdfsagsfwe#gghassdf', 4, 1, 1, 0),
 (6, 'Who can benefit from business competition? #1#4#Honest businessmen. #Both businessmen and their customers. #People with ideals of equality and freedom. #Both business institutions and government. ', 'A', 1, 1, 1, 0),
 (7, 'Research findings show we spend about two hours dreaming every night, no matter what we # during the day. ', 'big', 2, 1, 0, 0),
-(8, 'Research findings show we spend about two hours dreaming every night, no matter what we # during the day. ', 'big', 2, 1, 0, 0),
+(8, '搜搜看Research findings show we spend about two hours dreaming every night, no matter what we # during the day. ', 'big', 2, 1, 0, 0),
 (9, 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk', 'kkkkkkkkkkkkkkkkkkkkkkkkkjjjjjjjjjjjjjjjjjjjjjjjjjjj', 3, 2, 0, 0),
 (10, 'kjh#1##', '', 1, 2, 0, 0),
 (11, 'kjh#1##', '', 1, 2, 0, 0),
@@ -294,6 +296,7 @@ CREATE TABLE IF NOT EXISTS `plib_result` (
 CREATE TABLE IF NOT EXISTS `plib_test` (
   `tid` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `paid` mediumint(8) unsigned NOT NULL,
+  `mid` smallint(6) unsigned NOT NULL,
   `stime` datetime NOT NULL,
   `etime` datetime NOT NULL,
   `groupids` text NOT NULL,
