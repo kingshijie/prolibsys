@@ -30,5 +30,4 @@
     define('PLIB_VERSION',0);	//系统版本
 
     $tplrefresh = 1; //是否自动更新模板缓存
-
 ?>

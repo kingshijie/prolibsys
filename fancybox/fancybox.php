@@ -37,4 +37,10 @@
 			<div id="hw"></div>
 		</div>';	
 	}
+	//显示考试选择科目
+	if($op == 'sel_maj'){
+		get_cache('major');
+		$sel_ma = build_selection($CACHE['major'],'major');
+		echo "<form action=\"admincp.php?ac=test&op=show_add\" method=\"post\">科目：$sel_ma<input type=\"submit\" value=\"确定\"></form>";
+	}
 ?>
