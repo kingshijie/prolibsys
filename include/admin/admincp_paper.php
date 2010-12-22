@@ -29,7 +29,8 @@
 		for($i = 1;$i <= $block_num;$i++){
 			$paper_des .= ($i == 1)?'###':'##';
 			$paper_des .= pro_transform($_POST['block_title'.$i]);
-			$paper_des .= '#'.pro_transform($_POST['block_des'.$i]);
+			$block_des = empty($_POST['block_des'.$i])?'&nbsp;':pro_transform($_POST['block_des'.$i]);
+			$paper_des .= '#'.$block_des;
 			$session_pro = 'block'.$i;
 			if(is_array($_SESSION[$session_pro]))
 				$pro_str = implode('#',$_SESSION[$session_pro]);

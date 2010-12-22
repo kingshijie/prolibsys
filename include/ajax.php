@@ -43,7 +43,7 @@
 		$need_kno = empty($kno);
 		$tprolib = tname('prolib');
 		$tp_k = tname('prolib_knowledge');
-		$sql = 'SELECT '.$tprolib.'.`pid`,`description` FROM '.$tprolib.($need_kno?'':','.$tp_k).' WHERE `typeid`='.$typeid.($need_kno?'':' AND '.$tp_k.'.`kid`='.$kno).(empty($search_des)?'':' AND `description` LIKE \'%'.$search_des.'%\'').($need_kno?'':' AND '.$tp_k.'.`pid`='.$tprolib.'.`pid`');
+		$sql = 'SELECT '.$tprolib.'.`pid`,`description` FROM '.$tprolib.($need_kno?'':','.$tp_k).' WHERE `parent`=0 AND `typeid`='.$typeid.($need_kno?'':' AND '.$tp_k.'.`kid`='.$kno).(empty($search_des)?'':' AND `description` LIKE \'%'.$search_des.'%\'').($need_kno?'':' AND '.$tp_k.'.`pid`='.$tprolib.'.`pid`');
 		$result = $db->fetch_all($sql);
 		echo '<h2>搜索结果：</h2>';
 		foreach($result as $pro){

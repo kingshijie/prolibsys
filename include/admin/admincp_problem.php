@@ -2,10 +2,9 @@
 	if (!defined('IN_PLIB')) {
 		exit('Access Denied');
 	}
-	include PLIB_ROOT.'./include/function_problem.php';
 	if($op == 'default' || $op == 'display'){
-		$count_sql = 'SELECT COUNT(*) FROM '.tname('prolib');
-		$sql = 'SELECT * FROM '.tname('prolib').' ORDER BY `pid` DESC {LMT)';
+		$count_sql = 'SELECT COUNT(*) FROM '.tname('prolib').' WHERE parent=0';
+		$sql = 'SELECT * FROM '.tname('prolib').' WHERE parent=0 ORDER BY `pid` DESC {LMT)';
 		$page = isset($_GET['page']) ? max(intval($_GET['page']), 1) : 1;
 		$pro_arr = page_division($count_sql, $sql, $page, $page_arr);
 		//获得题型缓存
@@ -43,8 +42,11 @@
 				$description = pro2str_sel($_POST['description'],$_POST['unique'],$_POST['opt_num'],$_POST['item']);
 				$ans = strtoupper($_POST['ans']);
 				delcookie('item_num');
-				//echo 'INSERT INTO '.tname('prolib')." VALUES(NULL,$description,$ans,$_POST[typeid],$_POST[mid],1,$_POST[isexer])";
-				if($db->query('INSERT INTO '.tname('prolib')." VALUES(NULL,'$description','$ans',$_POST[typeid],$_POST[mid],0,$_POST[isexer])")){
+				if($parent == 'Normal')
+					$sql = 'INSERT INTO '.tname('prolib')." VALUES(NULL,'$description','$ans',$_POST[typeid],$_POST[mid],0,$_POST[isexer],0)";
+				else
+					$sql = 'INSERT INTO '.tname('prolib')." VALUES(NULL,'$description','$ans',$_POST[typeid],$_POST[mid],0,$_POST[isexer],1)";
+				if($db->query($sql)){
 					ssetcookie('item_num',3,600);
 					if(isset($_POST['knos'])){						
 						$pid = $db->insert_id();
@@ -72,7 +74,11 @@
 				}
 				break;
 			case '填空题':
-				if($db->query('INSERT INTO '.tname('prolib')." VALUES(NULL,'$_POST[description]','$_POST[ans]',$_POST[typeid],$_POST[mid],0,$_POST[isexer])")){
+				if($parent == 'Normal')
+					$sql = 'INSERT INTO '.tname('prolib')." VALUES(NULL,'$description','$ans',$_POST[typeid],$_POST[mid],0,$_POST[isexer],0)";
+				else
+					$sql = 'INSERT INTO '.tname('prolib')." VALUES(NULL,'$description','$ans',$_POST[typeid],$_POST[mid],0,$_POST[isexer],1)";
+				if($db->query($sql)){
 					if(isset($_POST['knos'])){						
 						$pid = $db->insert_id();
 						$str = '';
@@ -100,7 +106,11 @@
 				break;
 			case '简答题':
 			case '名词解释':
-				if($db->query('INSERT INTO '.tname('prolib')." VALUES(NULL,'$_POST[description]','$_POST[ans]',$_POST[typeid],$_POST[mid],0,$_POST[isexer])")){
+				if($parent == 'Normal')
+					$sql = 'INSERT INTO '.tname('prolib')." VALUES(NULL,'$description','$ans',$_POST[typeid],$_POST[mid],0,$_POST[isexer],0)";
+				else
+					$sql = 'INSERT INTO '.tname('prolib')." VALUES(NULL,'$description','$ans',$_POST[typeid],$_POST[mid],0,$_POST[isexer],1)";
+				if($db->query($sql)){
 					if(isset($_POST['knos'])){			
 						$pid = $db->insert_id();
 						$str = '';
@@ -126,7 +136,7 @@
 					header("Location: admincp.php?ac=problem&op=display");		
 				}
 				break;
-			case '组合题':
+			case '组合题'://组合题不能嵌套插入组合题
 				$des = pro_transform($_POST['description']);
 				$pros = array();
 				if(checkcookie('parent')){
@@ -135,7 +145,7 @@
 				foreach($pros as $pro){
 					$des .= ('#'.$pro);
 				}
-				if($db->query('INSERT INTO '.tname('prolib')." VALUES(NULL,'$des','',$_POST[typeid],$_POST[mid],0,$_POST[isexer])")){
+				if($db->query('INSERT INTO '.tname('prolib')." VALUES(NULL,'$des','',$_POST[typeid],$_POST[mid],0,$_POST[isexer],0)")){
 					delcookie('parent');
 					if(isset($_POST['knos'])){						
 						$pid = $db->insert_id();
