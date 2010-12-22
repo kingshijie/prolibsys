@@ -3,12 +3,13 @@
 	<h2>考试管理</h2>
 </div>
 <div class="content">
-<div ><a href="admincp.php?ac=test&op=show_add">添加考试</a></div>
+<div ><a class="show_info" href="./fancybox/fancybox.php?op=sel_maj">添加考试</a></div>
+<hr />
 {if $op == 'default' || $op == 'display'}
 	<table border="1">
-		<tr><td>考试id</td><td>试卷id</td><td>开始时间</td><td>结束时间</td><td>考试组</td><td colspan="2">操作</td></tr>
+		<tr><td>考试id</td><td>试卷id</td><td>科目</td><td>开始时间</td><td>结束时间</td><td>考试组</td><td colspan="2">操作</td></tr>
 	{loop $test_arr $test}
-		<tr><td>{$test['tid']}</td><td>{$test['paid']}</td><td>{$test['stime']}</td><td>{$test['etime']}</td><td>{$test['groupids']}</td><td><a href="admincp.php?ac=test&op=show_edit&tid={$test['tid']}">编辑</a></td><td><a onclick="javascript:if(!confirm('确定要删除选择的信息吗？\n此操作不可以恢复！')) {return false; }"  href="admincp.php?ac=test&op=del&tid={$test['tid']}">删除</a></td></tr>
+		<tr><td>{$test['tid']}</td><td>{$test['paid']}</td><td>{echo $CACHE['major'][$test['mid']]}</td><td>{$test['stime']}</td><td>{$test['etime']}</td><td>{$test['groupids']}</td><td><a href="admincp.php?ac=test&op=show_edit&tid={$test['tid']}">编辑</a></td><td><a onclick="javascript:if(!confirm('确定要删除选择的信息吗？\n此操作不可以恢复！')) {return false; }"  href="admincp.php?ac=test&op=del&tid={$test['tid']}">删除</a></td></tr>
 	{/loop}
 	</table>
 	<br />
@@ -23,12 +24,55 @@
 	{/loop}
 	{if $page < $no}&nbsp;<a href="admincp.php?ac=test&page={$page+1}">下一页</a>{/if}
 {elseif $op == 'show_add'}
-	<form action="admincp.php?ac=test&op=add_test" method="post">		
-		
+	<div>添加新的考试</div>
+	<form action="admincp.php?ac=test&op=add_test&mid={$mid}" method="post">		
+		<span>选择试卷：</span>&nbsp;
+		<select name="paper">
+				<option selected="selected">请选择考试的试卷……</option>
+			{loop $par_arr $par}
+				<option value="{$par['paid']}">{$par['title']}</option>
+			{/loop}		
+		</select><br />
+		<span>开始时间：格式（2010-12-20 09:00:00）&nbsp;&nbsp;</span><input type="text" size="20" name="stime" /><br />
+		<span>结束时间：格式（2010-12-20 09:00:00）&nbsp;&nbsp;</span><input type="text" size="20" name="etime" /><br />
+		<span>选择考试组：</span><br />
+			{loop $gro_arr $gro}
+				<input type="checkbox" name="groupids[]" value="{$gro['groupid']}">{$gro['groupname']}</option>
+			{/loop}		
+		<br />
+		<input type="submit" value="添加考试">&nbsp;&nbsp;<input type="reset" value="重新设置">
 	</form>
+{elseif $op == 'add_test'}
+	<div>添加成功!</div>
+	<a href="admincp.php?ac=test&op=display">返回考试管理</a>
 {elseif $op == 'show_edit'}
-	<form action="admincp.php?ac=test&op=edit_test&tid={$tid}" method="post">
-		22222222
+	<div>修改考试内容</div>
+	<form action="admincp.php?ac=test&op=edit_test&tid={$test['tid']}" method="post">
+				<span>选择试卷：</span>&nbsp;
+		<select name="paper">
+			{loop $par_arr $par}
+				{if $par['id'] == $test['paid']}
+				<option value="{$par['paid']}" selected="selected">{$par['title']}</option>
+				{else}
+				<option value="{$par['paid']}">{$par['title']}</option>
+				{/if}
+			{/loop}		
+		</select><br />
+		<span>开始时间：格式（2010-12-20 09:00:00）&nbsp;&nbsp;</span><input type="text" size="20" name="stime" value="{$test['stime']}" /><br />
+		<span>结束时间：格式（2010-12-20 09:00:00）&nbsp;&nbsp;</span><input type="text" size="20" name="etime" value="{$test['etime']}" /><br />
+		<span>选择考试组：</span><br />
+			{loop $gro_arr $gro}
+				{if in_array($gro['groupid'],$test_gro)}
+				<input type="checkbox" name="groupids[]" value="{$gro['groupid']}" checked="checked">{$gro['groupname']}
+				{else}
+				<input type="checkbox" name="groupids[]" value="{$gro['groupid']}">{$gro['groupname']}
+				{/if}			
+			{/loop}
+			<br />
+		<input type="submit" value="确认修改">&nbsp;&nbsp;<input type="reset" value="重新设置">
 	</form>
+{elseif $op == 'edit_test'}
+	<div>修改成功!</div>
+	<a href="admincp.php?ac=test&op=display">返回考试管理</a>
 {/if}
 </div>
