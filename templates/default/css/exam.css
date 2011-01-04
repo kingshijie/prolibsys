@@ -1,9 +1,11 @@
 body{
 	margin: auto;
 	text-align: center;
-	background-color:#989898;
+	//background-color:#989898;
 	background-attachment:scroll;
-	box-shadow:rgba(200,200,200,1) 0 4px 18px;
+	background-image:url(../image/bg.gif);
+	//background-repeat:repeat;
+	background-color:#CCFFFF;
 }
 
 ul li a:link{
@@ -55,10 +57,12 @@ li{
 }
 #header{
 	//height: 30px;
+	text-align: left;
+	font-size: 12px;
 	width:auto;	
 	padding:0.5em;
 	color:white;
-	background-color:#9099AE;
+	background-color:#333333;
 	clear:left;
 	-webkit-border-top-left-radius:10px;
 	-webkit-border-top-right-radius:10px;
@@ -175,19 +179,19 @@ div.child{
 	}*/
 #paper-header{
 	width: auto;
-	height: 45px;
+	height: 36px;
  	background-attachment: scroll;
 	background-clip:border-box;
 }
 #paper-header-pin{
 	width: 36px;
-	height: 45px;
+	height: 36px;
 	margin-right: 544px;
 	float: left;
 	margin-top: 0px;
 	margin-bottom: 0px;
 	margin-left: 0px;
-	background-image: url(../image/pin.gif);
+	background-image: url(../image/pin_.gif);
 }
 #paper-header-up{
 	width: auto;

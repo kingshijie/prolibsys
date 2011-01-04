@@ -4,7 +4,7 @@
 	}
 	if(!checkcookie('uid')){
 		header("HTTP/1.1 301 Moved Permanently");
-		header("Location: cp.php?ac=index");
+		header("Location: index.html");
 	}
 	$uid = getcookie('uid');
 	$tid = $_GET['tid'];

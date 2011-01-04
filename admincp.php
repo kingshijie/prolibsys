@@ -3,10 +3,10 @@ define('NOROBOT', TRUE);
 define('INPLIBADMIN', TRUE);
 require_once './include/common.inc.php';
 include_once './fckeditor/fckeditor.php';
-/*if(!getcookie('is_admin')){
-	echo "<script language=javascript>alert('您没有权限进行此操作！');location.href='cp.php?ac=home';</script>";
+if(!getcookie('is_admin')){
+	echo "<script language=javascript>alert('您没有权限进行此操作！');location.href='index.html';</script>";
 	exit;
-}*/
+}
 $tpldir = 'templates/default/admin/';
 $styleid ='admin'; //模板id号
 $timeout = 60; //模板缓存文件过期时间
