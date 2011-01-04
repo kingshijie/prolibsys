@@ -1,0 +1,103 @@
+<div class="main_header">
+	<div id="icon-center" class="icon32"><br /></div> 
+	<h2>题库管理</h2>
+</div>
+<div class="content">
+{if $op == 'default' || $op == 'display'}
+	<table border="1">
+		<tr><td>考试id</td><td style="width:300px;overflow:hidden">试卷标题</td><td>科目</td><td>开始时间</td><td>结束时间</td><td>考试组</td><td colspan="2">操作</td></tr>
+	{loop $tests $test}
+		{eval $title = $db->fetch_first('SELECT `title` FROM '.tname('paper').' WHERE paid='.$test['paid'])}
+		<tr><td>{$test['tid']}</td><td>{$title['title']}</td><td>{$CACHE['major'][$test['mid']]}</td><td>{$test['stime']}</td><td>{$test['etime']}</td><td>{$test['groupids']}</td><td><a href="admincp.php?ac=perusal&op=choose_pro&tid={$test['tid']}&paid={$test['paid']}">改卷</a></td></tr>
+	{/loop}
+	</table>
+	<br />
+	<!-- 页码显示段 -->
+	{if $page > $page_arr[0]}<a href="admincp.php?ac=perusal&page={echo $page-1}">上一页</a>&nbsp;{/if}
+	{loop $page_arr $no}
+		{if $no != $page}
+			&nbsp;<a href="admincp.php?ac=perusal&page={$no}">{$no}</a>
+		{else}
+			&nbsp;{$no}
+		{/if}
+	{/loop}
+	{if $page < $no}&nbsp;<a href="admincp.php?ac=perusal&page={echo $page+1}">下一页</a>{/if}
+{elseif $op == 'choose_pro'}
+	<h3>选择要批阅的题</h3>
+	<form action="admincp.php?ac=perusal&op=set_cookie" method="post">
+	<input type="hidden" value="{$tid}" name="tid" />
+	<ul>
+	{loop $CACHE['paper'] $key=>$pro}
+		{if !$pro['autocheck']}
+			<li><input type="checkbox" name="pro[]" value="{$key}" />({$pro['score']}分){$pro['description']}</li>
+		{/if}
+	{/loop}
+	</ul>
+	<input type="submit" value="确定" />
+	</form>
+{elseif $op == 'perusal'}
+	<h2>组：{$groupname['groupname']}</h2>
+	{if $group_index-1 >= 0}<a href="admincp.php?ac=perusal&op=perusal&group={echo $group_index-1}">上一组</a>&nbsp;&nbsp;{/if}
+	{if $group_index+1 < count($group_arr)}&nbsp;&nbsp;<a href="admincp.php?ac=perusal&op=perusal&group={echo $group_index+1}">下一组</a>{/if}
+	<form action="#" method="#" id="form">
+	成绩&nbsp;&nbsp;答案
+	<div id="result_content"></div>
+	</form>
+	<div id="foreword"><a heft="#" onclick="fetch_result(current,current-1);">上一个</a></div>
+	<div id="next"><a heft="#"  onclick="fetch_result(current,current+1);">下一个</a></div>
+	{eval $i=0}
+	{loop $ans_arr $rid=>$ans}
+		{eval $i++}
+		<div id="result{$i}" style="visibility:hidden">
+			{loop $pros $pid}
+			<input type="text" class="score" name="{$rid}_{$pid}" />&nbsp;{echo $ans[$pid]}<br />
+			{/loop}
+		</div>
+	{/loop}
+	<script type="text/javascript">
+		function set_value(id){
+			var cuk = getCookie('res');
+			if(cuk == null){
+				res_tmp = new Array();
+			}else{
+				res_tmp = cuk.split(",");
+			}
+			var obj = document.getElementById('form');
+			for(var i = 0; i < obj.elements.length; i++){
+				res_tmp[(id-1)*pro_num+i] = obj.elements[i].value;
+			}
+			SetCookie('res',res_tmp.join(","));
+		}
+		function set_form(id){
+			var cuk = getCookie('res');
+			if(cuk == null){
+				res_tmp = new Array();
+			}else{
+				res_tmp = cuk.split(",");
+			}
+			var obj = document.getElementById('form');
+			for(var i = 0;i < obj.elements.length; i++){
+				if(res_tmp[(id-1)*pro_num+i] != undefined)			
+					obj.elements[i].value = res_tmp[(id-1)*pro_num+i];
+			}
+		}
+		function fetch_result(old_id,new_id){
+			obj = document.getElementById('result'+new_id);
+			if(!obj)	{
+				current = old_id;
+				set_value(old_id);
+				return false;
+			}else	{
+				current = new_id;
+				set_value(old_id);
+				document.getElementById('result_content').innerHTML = obj.innerHTML;
+				set_form(new_id);
+			}
+		}
+		delCookie('res');
+		current=1;
+		pro_num = {echo count($pros)};
+		fetch_result(current,current);
+	</script>
+{/if}
+</div>

@@ -1,11 +1,32 @@
-<!-- <form method="post" action="admincp.php?ac=major&op=add">
-	<input type="text" name="majorname">输入科目名称khkljlkjlj
-	<input type="submit" />
-</form> -->
-{loop $major_arr $major}
-	{if $major['mid'] != 1}
-	<b>{$major['mid']}</b>&nbsp;{$major['mname']}<br />
-	{else}
-	{$major['mid']}&nbsp;<font size="14">{$major['mname']}</font><br />
-	{/if}
-{/loop}
+
+<div class="main_header">
+	<div id="icon-center" class="icon32"><br /></div> 
+	<h2>科目管理</h2>
+</div>
+<div class="content">
+<div ><a class="show_info" href="./fancybox/fancybox.php?op=add_major">添加科目</a></div>
+	<table border="1">
+		<tr><td>科目id</td><td>科目name</td><td colspan="2">操作</td></tr>
+	{loop $major_arr $major}
+		<tr>
+			<td>{echo $major['mid']}</td>
+			<td>{echo $major['mname']}</td>
+			<td><a class="show_info" href="./fancybox/fancybox.php?op=edit_major&mid={$major['mid']}">编辑</a></td>
+			<td><a href="admincp.php?ac=major&op=delete_major&delete_major_id={$major['mid']}" onclick="javascript:if(!confirm('确定要删除选择的信息吗？\n此操作不可以恢复！')) {return false; }">删除</a></td>
+		</tr>
+	{/loop}
+	</table>
+	<br />
+	<!-- 页码显示段 -->
+	{if $page > $page_arr[0]}<a href="admincp.php?ac=major&page={echo $page-1}">上一页</a>&nbsp;{/if}
+	{loop $page_arr $no}
+		{if $no != $page}
+			&nbsp;<a href="admincp.php?ac=major&page={$no}">{$no}</a>
+		{else}
+			&nbsp;{$no}
+		{/if}
+	{/loop}
+	{if $page < $no}&nbsp;<a href="admincp.php?ac=major&page={echo $page+1}">下一页</a>{/if}
+
+
+</div>

@@ -11,8 +11,8 @@ $tpldir = 'templates/default/admin/';
 $styleid ='admin'; //模板id号
 $timeout = 60; //模板缓存文件过期时间
 $language = include PLIB_ROOT.$tpldir.'/language.php'; //language.php的编码需要和系统的编码一致
-
-$ac = isset($_GET['ac'])?$_GET['ac']:'index';
+$acs = array('index','problem','paper','test','perusal','group','user','major','knowledge');
+$ac = (empty($_GET['ac']) || !in_array($_GET['ac'], $acs))?'index':$_GET['ac'];
 $op = isset($_GET['op'])?$_GET['op']:'default';
 
 include_once(PLIB_ROOT.'./include/admin/admincp_'.$ac.'.php');

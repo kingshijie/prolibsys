@@ -5,3 +5,28 @@
 	margin:10px;
 	display: block;
 }
+.score{
+	width:20px;	
+}
+#foreword{
+	width:150px;
+	clear: left;
+	display: inline;
+	font-size: 20px;
+	text-align: center;
+	line-height: 25px;
+}
+#next{
+	width:150px;
+	display: inline;
+	font-size: 20px;
+	text-align: center;
+	clear: right;
+	margin-left: 300px;
+	line-height: 25px;
+}
+
+#result_content{
+	width:600px;
+	display: block;
+}

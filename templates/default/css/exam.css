@@ -1,8 +1,9 @@
 body{
 	margin: auto;
 	text-align: center;
-	background-image:url(../image/paper.jpg);
+	background-color:#989898;
 	background-attachment:scroll;
+	box-shadow:rgba(200,200,200,1) 0 4px 18px;
 }
 
 ul li a:link{
@@ -10,7 +11,6 @@ ul li a:link{
 	font-family:Arial, Helvetica, sans-serif;
 	text-decoration : none ;
 	color:#6666CC;
-	//background-color:#3333FF;
 }
 ul li a:visited {
 	font-weight : bold ;
@@ -22,7 +22,6 @@ ul li a:hover {
 	font-weight : bold ;
 	color:#00CC00;
 	text-decoration : underline ;
-	//background-color:#00FF33;
 }
 	 
 li{
@@ -32,6 +31,15 @@ li{
 	width: 980px;
 	margin: auto;
 	text-align: center;
+	border:1px solid #e5e5e5;
+   -moz-box-shadow:rgba(200,200,200,1) 0 4px 4px;
+   -webkit-box-shadow:rgba(200,200,200,1) 0 4px 4px;
+   -khtml-box-shadow:rgba(200,200,200,1) 0 4px 4px;
+   box-shadow:rgba(123,211,200,1) 0 4px 4px;
+   -moz-border-radius:10px;
+   -khtml-border-radius:10px;
+   -webkit-border-radius:10px;
+   border-radius:5px;
 }
 #con{
 	width: 100%;
@@ -41,8 +49,9 @@ li{
 }
 .right{
 	width: 200px;
-	height: 690px;
-	float: left;
+	height: 300px;
+	background-color:#EEEEEE;
+	float: right;
 }
 #header{
 	//height: 30px;
@@ -51,22 +60,34 @@ li{
 	color:white;
 	background-color:#9099AE;
 	clear:left;
+	-webkit-border-top-left-radius:10px;
+	-webkit-border-top-right-radius:10px;
 }
 #footbar{
-margin-top:690px;
-padding:0.5em;
-color:white;
-background-color:blue;
+	margin-top:690px;
+	padding:0.5em;
+	color:white;
+	background-color:#222222;
+	-webkit-border-bottom-left-radius:10px;
+	-webkit-border-bottom-right-radius:10px;
 }
 #left{
+	width: 180px;
+	height: 690px;
+	background-color: #EEEEEE;
+	margin:0px;
+	/*border:1px solid gray;*/
+	line-height:150%; /*line whill also occupy the height;*/
+	float: left;
+	/*
 	padding-top: 20px;
 	width: 180px;
 	height: 668px;
 	background-color: white;
 	margin:0px;
-	/*border:1px solid gray;*/
-	line-height:150%; /*line whill also occupy the height;*/
+	line-height:150%; 
 	float: left;
+	*/
 }
 //左侧实现树形目录，这里是目录div的渲染
 ul{ 
@@ -120,9 +141,11 @@ div.child{
 	font-weight: 2000;
 }
 #middle{
-	width: 600px;
+	width: 598px;
 	height: 690px;
 	background-color: white;
+	border-left:1px solid #e5e5e5;
+	border-right:1px solid #e5e5e5;
 	float: left;
 }
 #paper_title{
@@ -153,7 +176,7 @@ div.child{
 #paper-header{
 	width: auto;
 	height: 45px;
- background-attachment: scroll;
+ 	background-attachment: scroll;
 	background-clip:border-box;
 }
 #paper-header-pin{
@@ -220,7 +243,6 @@ div.child{
 /*timer box*/
 #right-up{
 	height: 150px;	
-	background-color:#f6f6f6;
 }
 #timer{
 	margin-top:-20px;
@@ -241,15 +263,13 @@ information box
 */
 #right-middle{
 	height: 450px;
-	background-color: orange;//tmp deputy
 }
 
 /*
 summit area
 */
 #right-down{
-	height: 90px;
-	background-color: #f6f6f6;	
+	height: 90px;	
 }
 #summit{
 	font-weight:normal;

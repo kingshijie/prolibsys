@@ -1,0 +1,32 @@
+<div class="main_header">
+	<div id="icon-center" class="icon32"><br /></div> 
+	<h2>知识点管理</h2>
+</div>
+<div class="content">
+<div ><a class="show_info" href="./fancybox/fancybox.php?op=add_knowledge">添加知识点</a></div>
+{if $op == 'display'}
+<table border="1">
+<tr> 
+  <td>知识点id</td>
+  <td>知识点</td>
+  <td>所属科目</td>
+  <td colspan="2">操作方法</td>
+</tr>
+{loop $knowledges $knowledge}
+ <tr>
+  <td>{echo $knowledge['kid']}&nbsp</td>
+  <td>{echo $knowledge['kname']}&nbsp;</td>
+  <td>{echo $CACHE['major'][$knowledge['mid']]}&nbsp;</td>
+  <td><a class="show_info" href="./fancybox/fancybox.php?op=know_edit&kid={echo $knowledge['kid']}" >修改</a></td>
+  <td><a onclick="javascript:if(!confirm('确定要删除选择的信息吗？\n此操作不可以恢复！')) {return false; }" href="admincp.php?ac=knowledge&op=know_delete&kid={echo $knowledge['kid']}">删除</a></td>
+  </tr>
+	<!-- {echo $knowledge['kid']}&nbsp;
+   {echo $knowledge['kname']}&nbsp;
+	{echo $knowledge['mid']}&nbsp;
+	<a href="admincp.php?ac=knowledge&op=showedit&kid={echo $knowledge['kid']}" >修改</a>
+	<a href="admincp.php?ac=knowledge&op=delete&kid={echo $knowledge['kid']}" >删除</a>
+	<br /> -->
+{/loop}
+</table>
+ {/if}
+ </div>

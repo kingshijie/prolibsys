@@ -1,0 +1,45 @@
+
+<div class="main_header">
+	<div id="icon-center" class="icon32"><br /></div> 
+	<h2>用户管理</h2>
+</div>
+<div class="content">
+<div ><a class="show_info" href="./fancybox/fancybox.php?op=add_user">添加用户</a></div>
+	<table border="1">
+		<tr>
+			<td>用户id</td>
+			<td>用户名</td>
+			<td>真实姓名</td>
+			<td>所属的组</td>
+			<td colspan="2">操作</td>
+		</tr>
+	{loop $user_arr $user}
+		<tr>
+			<td>{$user['uid']}</td>
+			<td>{$user['username']}</td>
+			<td>{$user['uname']}</td>
+			<td>
+				{eval $groupnames = get_group_name($user['uid'])}
+				{if empty($groupnames)}
+					没有组
+				{else}
+					{loop $groupnames $groupname}
+						{$groupname['groupname']},
+					{/loop}
+				{/if}
+			</td>
+			<td><a class="show_info" href="./fancybox/fancybox.php?op=edit_user&uid={$user['uid']}">编辑</a></td>
+			<td><a href="admincp.php?ac=user&op=delete_user&uid={$user['uid']}" onclick="javascript:if(!confirm('确定要删除选择的信息吗？\n此操作不可以恢复！')) {return false; }">删除</a></td>
+	{/loop}
+	</table>
+	<br />
+	<!-- 页码显示段 -->
+	{if $page > $page_arr[0]}<a href="admincp.php?ac=major&page={echo $page-1}">上一页</a>&nbsp;{/if}
+	{loop $page_arr $no}
+		{if $no != $page}
+			&nbsp;<a href="admincp.php?ac=major&page={$no}">{$no}</a>
+		{else}
+			&nbsp;{$no}
+		{/if}
+	{/loop}
+	{if $page < $no}&nbsp;<a href="admincp.php?ac=major&page={echo $page+1}">下一页</a>{/if}

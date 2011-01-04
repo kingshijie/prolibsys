@@ -71,9 +71,10 @@ function show_problem($name){
 		case '选择题':
 			$problem = str2pro_sel($des);
 			$show_str = "$problem[0]<br />";
-			if($problem[1] == 1) $input_type = 'radio';	else $input_type = 'checkbox';
+			$input_type = ($problem[1] == 1)?'radio':'checkbox';
+			$arr = ($problem[1] == 1)?'':'[]';
 			for($i = 3;$i < 3 + $problem[2];$i++){	
-				$show_str .= "<input type = $input_type name = $name />$problem[$i]<br />";
+				$show_str .= chr($i+62).'<input type = '.$input_type.' name = '.$name.$arr.' value='.chr($i+62).' />'.$problem[$i].'<br />';
 			}
 			return $show_str;
 		case '填空题':
@@ -250,5 +251,43 @@ function show_edit_pro($pid){
 	}
 	$show_str .= '<hr /><input type="submit" value="提交到题库" style="width:400px;">';
 	return $show_str;
+}
+/** 
+* 函数名：function get_pro_info($pid)
+* 功  能：获取题目信息
+* 参  数：
+* 返回值：$show_str 显示题目的静态代码
+*/ 
+function get_pro_info($pid){
+	global $db,$CACHE;
+	get_cache('pro_type');
+	$pro = $db->fetch_first('SELECT `description`,`ans`,`typeid`,`autocheck` FROM '.tname('prolib').' WHERE `pid`='.$pid);
+	switch($CACHE['pro_type'][$pro['typeid']]) {
+		case '选择题':
+			$problem = str2pro_sel($pro['description']);
+			$pro['description'] = $problem[0];
+			$pro['ans'] = explode('#',$pro['ans']);
+			break;
+		case '填空题':
+			$problem = str2pro_fil($pro['description']);
+			$pro['description'] = $problem;
+			$pro['ans'] = explode('#',$pro['ans']);
+			break;
+		case '简答题':
+		case '名词解释':
+			break;
+		case '组合题':
+			$problem = str2pro_cmb($pro['description']);
+			$pro['description'] = $problem[0];
+			$pro['ans'] = array();
+			for($i = 1;$i < count($problem);$i++){
+				$pro['ans'][] = get_pro_info($problem[$i]);
+			}
+			break;
+		default:
+			echo 'Undefined problem type.';
+			return false;
+	}
+	return $pro;
 }
 ?>

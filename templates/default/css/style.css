@@ -4,22 +4,22 @@ body, h1, h2, h3, h4, h5, h6, p, ul, dl, dt, dd, form, fieldset {margin:0;paddin
 h1, h2, h3, h4, h5, h6 {font-size:1em;}
 ul li {list-style:none;}
  
-a {color:#996600;text-decoration:none;}
+a {text-decoration:none;}
 a:hover {text-decoration:underline;}
 a img {border:none;}
 
 .main{width:100%;}
 
 /***********************************************HEADER   **/
-.head{background-color:#21507c;color:#FFF;height:35px;}
+.head{background-color:#006633;color:#FFF;height:35px;}
  .head .logo{width:135px;height:35px;float:left;}
  .head .left {float:left;padding:5px;line-height:25px;}
   .head .right{float:right;padding:5px;line-height:25px;}
   .head a{color:#FFF;}
   
 /***********************************************MENU   **/
-.admin_menu{float:left;margin:20px;color:#21507c;}
-.admin_menu .menu{padding:5px;text-align:center;line-height:25px;background:#eaf3fa;border:1px #e3e3e3 solid;cursor:pointer;width:145px;}
+.admin_menu{float:left;margin:20px;color:#55aa55;}
+.admin_menu .menu{padding:5px;text-align:center;line-height:25px;background:#55aa55;border:1px #006600 solid;cursor:pointer;width:145px;}
 .admin_menu .menu-separator{background:none;}
 .admin_menu .active a{color:#F00;}
 

@@ -26,7 +26,7 @@
 						</div>
 						<div id="paper-middler">
 							<div id="paper-body">
-								<form action="#" method="post"> 
+								<form action="cp.php?ac=submit&uid={$uid}&tid={$tid}" method="post"> 
 								<div id="paper_title">{$title}</div>
 								{eval $i = 0}
 								{eval $j = 0}
@@ -38,7 +38,7 @@
 									{loop $block[2] $pid}
 									{eval $j++}
 									<div  id="pro{$j}" class="pro_style" onmouseover="this.style.background='#ede65e'" onmouseout="this.style.background='white'">
-										{echo "<span>$j</span>.".show_problem($pid)}
+										{echo $score[$j-1]."分<span>($j)</span>.".show_problem($pid)}
 									</div>
 									{/loop}
 								</div>
@@ -56,14 +56,25 @@
 				<div class="right">
 					<div id="right-up" class="right">
 						<h5 align="center">Timer</h5>
-						剩余时间：90:30
+						剩余时间：<span id="endtime" ></span>	
+						<script type="text/javascript">
+							var CID = "endtime";
+							if(window.CID != null)
+							{
+								var iTime = getCookie('time');
+								if(iTime==null)
+									iTime = {echo $paper['timeNeed']*60};
+								var Account;
+								RemainTime();
+							}
+						</script>
 					</div>
 					<div id="right-middle" class="right">
 						<!--in right middle	-->			
 					</div>
 					<div id="right-down" class="right">
 							<h5 >请在确认后交卷</h5>
-							<input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="交卷" title="Ready to summit?" tabindex="100" />			
+							<input type="submit" id="wp-submit" class="button-primary" value="交卷" title="Ready to summit?" tabindex="100" />			
 						</form>
 					</div>
 				</div>

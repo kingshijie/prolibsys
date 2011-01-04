@@ -51,7 +51,7 @@ $cookieusername = getcookie('username');
 dbconnect();
 
 //$editor = '';//编辑器初始化 
-
+$html_active = 0;//是否自动生成html
 $tpldir = './templates/default'; //模板文件目录
 $paperdir = PLIB_ROOT.'./cache/papers/';	//试卷静态页面存放目录
 $styleid = 1; //模板id号

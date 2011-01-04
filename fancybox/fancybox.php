@@ -48,4 +48,100 @@
 		$sel_ma = build_selection($CACHE['major'],'major');
 		echo "<form action=\"admincp.php?ac=test&op=show_add\" method=\"post\">科目：$sel_ma<input type=\"submit\" value=\"确定\"></form>";
 	}
+	
+	/**************************************************************************
+	**以下是科目管理的部分
+	***************************************************************************
+	*/
+	//添加科目时，输入科目名称
+	if($op=='add_major'){
+		echo "<form action=\"admincp.php?ac=major&op=add_major\" method=\"post\">
+				科目名：<input type=\"text\" name=\"major_name\" >
+				<br /><input type=\"submit\" value=\"确定添加\"></form>";
+		
+	}
+	//编辑科目
+	if($op=='edit_major'){
+		echo "<form action=\"admincp.php?ac=major&op=edit_major&mid={$_GET['mid']}\" method=\"post\">
+				new新的科目名：<input type=\"text\" name=\"new_mname\" >
+				<br /><input type=\"submit\" value=\"确定编辑\"></form>";
+	}
+
+	
+	/**************************************************************************
+	**以下是用户管理的部分
+	***************************************************************************
+	*/
+	if($op == 'add_user'){
+		$result = $db->query('SELECT * FROM '.tname('group'));
+		while($info = $db->fetch_array($result)){
+			$group[$info['groupid']] = $info['groupname'];	
+		}
+		$group_sel = build_selection($group,'group');
+		echo "<form action=\"admincp.php?ac=user&op=add_user\" method=\"post\">
+					用户名：<input type=\"text\" name=\"username\" ><br>
+					用户密码:<input type=\"password\" name=\"password\"><br>
+					确认密码:<input type=\"password\" name=\"confim_password\"><br>
+					真实名：<input type=\"text\" name=\"uname\" ><br>
+					所属的用户组：$group_sel
+					<br /><input type=\"submit\" value=\"确定添加\"><br>
+				</form>";
+	}
+
+	if($op == 'edit_user'){
+		$result = $db->query('SELECT * FROM '.tname('group'));
+		while($info = $db->fetch_array($result)){
+			$group[$info['groupid']] = $info['groupname'];	
+		}
+		$group_sel = build_selection($group,'group');
+		echo '<h3>空着表示不修改</h3>';
+		echo "<form action=\"admincp.php?ac=user&op=edit_user&uid={$_GET['uid']}\" method=\"post\">
+					用户名：<input type=\"text\" name=\"new_username\" ><br>
+					用户密码:<input type=\"password\" name=\"new_password\"><br>
+					确认密码:<input type=\"password\" name=\"new_confim_password\"><br>
+					真实名：<input type=\"text\" name=\"new_uname\" ><br>
+					所属的用户组：$group_sel
+					<br /><input type=\"submit\" value=\"确定添加\"><br>
+				</form>";
+	}
+	
+	
+	/**************************************************************************
+	**以下是group管理的部分
+	***************************************************************************
+	*/
+	//添加组时，输入组名称
+	if($op=='add_group'){
+		echo "<form action=\"admincp.php?ac=group&op=add_group\" method=\"post\">
+				组名：<input type=\"text\" name=\"groupname\" >
+				<br /><input type=\"submit\" value=\"确定添加\"></form>";
+		
+	}
+	//编辑组
+	if($op=='edit_group'){
+		echo "<form action=\"admincp.php?ac=group&op=edit_group&groupid={$_GET['groupid']}\" method=\"post\">
+				新的组名：<input type=\"text\" name=\"groupname\" >
+				<br /><input type=\"submit\" value=\"确定编辑\"></form>";
+	}
+/*****************************************************************/
+	if($op == 'add_knowledge'){
+		get_cache('major');
+		$major_sel = build_selection($CACHE['major'],'mid');
+		echo '<form method="post" action="admincp.php?ac=knowledge&op=know_insert">
+   			<p>输入知识点名称:</p>
+   			<input type="text" name="kname">
+   			<p>选择科目:</p>'.$major_sel.'
+  				<input type="submit" name="ok" value="确定">
+    			</form> ';
+	}
+	if($op == 'know_edit'){
+		get_cache('major');
+		$major_sel = build_selection($CACHE['major'],'mid');
+		echo '<form method="post"  action="admincp.php?ac=knowledge&op=know_edit&kid='.$_GET['kid'].'" >
+	         <p>输入新的知识点名称:</p>
+	  			<input type="text" name="kname">
+	 			<p>选择修改的科目:</p>'.$major_sel.'
+	  			<br /><input type="submit" name="ok" value="确定">
+  				</form>';
+	}
 ?>
