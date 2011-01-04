@@ -1,0 +1,106 @@
+
+body{
+	margin: auto;
+	background-attachment:scroll;
+	box-shadow:rgba(200,200,200,1) 0 4px 18px;
+}
+#wrap{
+	width: 800px;
+	height:500px;
+	margin: auto;
+	margin-top:20px;
+	//text-align: center;
+	border:1px solid #e5e5e5;
+   -moz-box-shadow:rgba(200,200,200,1) 0 4px 4px;
+   -webkit-box-shadow:rgba(200,200,200,1) 0 4px 4px;
+   -khtml-box-shadow:rgba(200,200,200,1) 0 4px 4px;
+   box-shadow:rgba(123,211,200,1) 0 4px 4px;
+   -moz-border-radius-topleft:10px;
+   -moz-border-radius-topright:10px;
+   -khtml-border-radius:10px;
+   -webkit-border-top-left-radius:10px;
+   -webkit-border-top-right-radius:10px;
+}
+#nav{
+	width:auto;
+	height:40px;
+	text-align: center;
+	-moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+	-webkit-border-top-left-radius:10px;
+	-webkit-border-top-right-radius:10px;
+	background-color:#d9d9d9;
+}
+.click{
+	display:inline-block; 
+	width:200px;
+	padding-top:10px;
+	height:30px; 
+	color:#333; 
+	text-decoration:none;//没有下划线
+	float:left;
+}
+.box{;
+	width:200px;
+	height:30px;
+	//background-color:#6633CC;
+	float:left;
+}
+.content{
+	width:800px; 
+	height:460px; 
+	overflow:hidden;
+	background:#fff;
+}
+.list{
+	width:auto;
+	height:460px;
+	
+}
+.pic{
+	width:600px;
+	height:100px;
+	float:left;
+	clear: both;
+	display: block;
+}
+#func{
+	-moz-border-radius-topleft:10px;
+	-webkit-border-top-left-radius:10px;
+}
+#syspic{
+background-image:url(../image/syspic.png);
+background-repeat:no-repeat;
+}
+#funpic{
+background-image:url(../image/funpic.png);
+background-repeat:no-repeat;
+}
+.description{
+	padding-left:200px;
+	padding-right:200px;
+	margin-top:20px;
+	clear: both;
+	display: block;
+	font-family:"Courier New", Courier, monospace;
+	direction:ltr;
+}
+#des2{
+	padding-left:300px;
+}
+a:link{
+	font-weight : bold ;
+	font-family:Arial, Helvetica, sans-serif;
+	text-decoration : none ;
+	color:#6666CC;
+}
+a:visited {
+	font-weight : bold ;		
+	color:purple ;
+}
+a:hover {
+	font-family:"Comic Sans MS", "Courier New", Courier, monospace;
+	font-weight : bold ;
+	color:purple;
+	background:#CCCCCC;
+}
