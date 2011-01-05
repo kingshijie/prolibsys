@@ -16,6 +16,21 @@
 				     		</ul>
 			     		</div>
 			     	{/loop}
+			     	<div  class="left_con">
+						<h5 align="center">剩余时间</h5>
+						剩余时间：<span id="endtime" ></span>	
+						<script type="text/javascript">
+							var CID = "endtime";
+							if(window.CID != null)
+							{
+								var iTime = getCookie('time');
+								if(iTime==null)
+									iTime = {echo $paper['timeNeed']*60};
+								var Account;
+								RemainTime();
+							}
+						</script>
+					</div>
 				</div>
 				<div id="middle">		
 					<div	id="paper">
@@ -26,7 +41,7 @@
 						</div>
 						<div id="paper-middler">
 							<div id="paper-body">
-								<form action="cp.php?ac=submit&uid={$uid}&tid={$tid}" method="post"> 
+								<form action="cp.php?ac=submit&uid={$uid}&tid={$tid}" method="post" id="paper"> 
 								<div id="paper_title">{$title}</div>
 								{eval $i = 0}
 								{eval $j = 0}
@@ -43,6 +58,11 @@
 									{/loop}
 								</div>
 								{/loop}
+								<center>
+										<h5>请在确认后交卷</h5>
+										<input style="width:500px;" type="submit" value="交卷" title="Ready to summit?" tabindex="100" />			
+								</center>
+								</form>
 							</div>
 						</div>
 						<div id="paper-footer">
@@ -51,31 +71,6 @@
 							<div id="paper-footer-right">
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="right">
-					<div id="right-up" class="right">
-						<h5 align="center">Timer</h5>
-						剩余时间：<span id="endtime" ></span>	
-						<script type="text/javascript">
-							var CID = "endtime";
-							if(window.CID != null)
-							{
-								var iTime = getCookie('time');
-								if(iTime==null)
-									iTime = {echo $paper['timeNeed']*60};
-								var Account;
-								RemainTime();
-							}
-						</script>
-					</div>
-					<div id="right-middle" class="right">
-						<!--in right middle	-->			
-					</div>
-					<div id="right-down" class="right">
-							<h5 >请在确认后交卷</h5>
-							<input type="submit" id="wp-submit" class="button-primary" value="交卷" title="Ready to summit?" tabindex="100" />			
-						</form>
 					</div>
 				</div>
 			</div>

@@ -65,7 +65,7 @@ function show_problem($name){
 	global $CACHE,$db;
 	get_cache('pro_type');
 	$pro_info = $db->fetch_first('SELECT `description`,`typeid` FROM '.tname('prolib').' WHERE `pid`='.$name);
-	$des = $pro_info['description'];
+	$des = str_ireplace("\r",'<br>',$pro_info['description']);
 	$typeid = $pro_info['typeid'];
 	switch($CACHE['pro_type'][$typeid]) {
 		case '选择题':
@@ -164,7 +164,7 @@ function show_add_pro($typeid, $mid, $isexer=0){
 		if((++$i) % 8 == 0)
 			$show_str .= '<br />';
 	}
-	$show_str .= '<hr /><input type="submit" value="提交到题库" style="width:400px;">';
+	$show_str .= '<hr /><input type="submit" value="提交到题库" style="width:400px;" onclick="delCookie(\'cmd_des\')">';
 	return $show_str;
 }
 

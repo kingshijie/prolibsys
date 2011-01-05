@@ -76,7 +76,7 @@ li{
 	-webkit-border-bottom-right-radius:10px;
 }
 #left{
-	width: 180px;
+	width: 230px;
 	height: 690px;
 	background-color: #EEEEEE;
 	margin:0px;
@@ -99,7 +99,8 @@ ul{
 	margin:0;
 }
 .left_menu {
-	 width:170px;
+	 overflow: hidden;
+	 width:220px;
 	 height:28px; 
 	 line-height:28px; 
 	 padding-left:5px;
@@ -121,7 +122,7 @@ ul{
 	overflow: hidden;
 }	
 div.child{
-	width:175px; 
+	width:215px; 
 	background:#eee;
 	style="border-width: 1px;
 	font-weight:normal;
@@ -145,7 +146,7 @@ div.child{
 	font-weight: 2000;
 }
 #middle{
-	width: 598px;
+	width: 748px;
 	height: 690px;
 	background-color: white;
 	border-left:1px solid #e5e5e5;
@@ -160,7 +161,7 @@ div.child{
 	margin: auto;
 }
 #paper{
-	width: 	580px;
+	width: 	740px;
 	height: 680px;
 	background-attachment: scroll;
 	background-color: transparent;

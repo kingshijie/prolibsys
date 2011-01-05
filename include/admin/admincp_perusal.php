@@ -4,7 +4,7 @@
 		$now = date("Y-m-d H:i:s");
 		//$tests = $db->fetch_all('SELECT * FROM '.tname('test').' WHERE `etime`<\''.$now.'\'');
 		$count_sql = 'SELECT COUNT(*) FROM '.tname('test').' WHERE `etime`<\''.$now.'\'';
-		$sql = 'SELECT * FROM '.tname('test').' WHERE `etime`<\''.$now.'\' ORDER BY `etime` DESC {LMT)';
+		$sql = 'SELECT * FROM '.tname('test').' WHERE `stime`<\''.$now.'\' ORDER BY `etime` {LMT)';
 		$page = isset($_GET['page']) ? max(intval($_GET['page']), 1) : 1;
 		$tests = page_division($count_sql, $sql, $page, $page_arr);
 		//print_r($tests);

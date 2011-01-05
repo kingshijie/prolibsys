@@ -1,6 +1,6 @@
 function SetCookie(name,value)//两个参数，一个是cookie的名子，一个是值
 {
-    var minute = 2; //此 cookie 将被保存 2 m
+    var minute = 30; //此 cookie 将被保存 2 m
     var exp  = new Date();    //new Date("December 31, 9998");
     exp.setTime(exp.getTime() + minute*60*1000);
     document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();

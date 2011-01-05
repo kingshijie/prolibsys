@@ -7,7 +7,7 @@ if (!defined('IN_PLIB')) {
 		$username=$_POST['username'];
 		if(!empty($_POST['password']) && !empty($_POST['confim_password'])){
 			if($_POST['password'] == $_POST['confim_password'])			
-				$new_password = encrypt($_POST['password']);
+				$password = encrypt($_POST['password']);
 			else {
 				$show_message = '两次密码不匹配';
 				header("HTTP/1.1 301 Moved Permanently");

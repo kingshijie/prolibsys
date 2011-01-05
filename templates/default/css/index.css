@@ -59,7 +59,7 @@ body{
 }
 .pic{
 	width:600px;
-	height:100px;
+	height:150px;
 	float:left;
 	clear: both;
 	display: block;
@@ -77,8 +77,8 @@ background-image:url(../image/funpic.png);
 background-repeat:no-repeat;
 }
 .description{
-	padding-left:200px;
-	padding-right:200px;
+	padding-left:100px;
+	padding-right:100px;
 	margin-top:20px;
 	clear: both;
 	display: block;

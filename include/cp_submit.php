@@ -14,7 +14,7 @@
 		$ans .= '###'.$result;
 	}
 	$ans = $i.$ans;
-	if($db->query('INSERT INTO '.tname('result')." VALUES(NULL,$tid,$uid,'$ans',0)")){
+	if($db->query('INSERT INTO '.tname('result')." VALUES(NULL,$tid,$uid,'$ans',0,'')")){
 		echo '<script type="text/javascript">alert(\'提交成功\');location.href=\'index.html\'</script>';
 	}
 ?>

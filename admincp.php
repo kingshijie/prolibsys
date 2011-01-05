@@ -2,7 +2,6 @@
 define('NOROBOT', TRUE);
 define('INPLIBADMIN', TRUE);
 require_once './include/common.inc.php';
-include_once './fckeditor/fckeditor.php';
 if(!getcookie('is_admin')){
 	echo "<script language=javascript>alert('您没有权限进行此操作！');location.href='index.html';</script>";
 	exit;

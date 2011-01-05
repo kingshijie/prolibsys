@@ -119,7 +119,7 @@
 		for($i = 1;$i <= $ans_arr[0];$i++){
 			$tmp_user_ans = array();
 			$tmp = explode('##',$ans_arr[$i]);
-			$tmp_user_ans[$tmp[0]] = explode('#',tmp[1]);
+			$tmp_user_ans[$tmp[0]] = explode('#',$tmp[1]);
 			$user_ans[] = $tmp_user_ans;
 		}	
 	}

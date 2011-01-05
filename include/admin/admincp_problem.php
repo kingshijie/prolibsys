@@ -74,6 +74,8 @@
 				}
 				break;
 			case '填空题':
+				$description = $_POST['description'];
+				$ans = $_POST['ans'];
 				if($parent == 'Normal')
 					$sql = 'INSERT INTO '.tname('prolib')." VALUES(NULL,'$description','$ans',$_POST[typeid],$_POST[mid],0,$_POST[isexer],0)";
 				else
@@ -106,6 +108,8 @@
 				break;
 			case '简答题':
 			case '名词解释':
+				$description = $_POST['description'];
+				$ans = $_POST['ans'];
 				if($parent == 'Normal')
 					$sql = 'INSERT INTO '.tname('prolib')." VALUES(NULL,'$description','$ans',$_POST[typeid],$_POST[mid],0,$_POST[isexer],0)";
 				else
